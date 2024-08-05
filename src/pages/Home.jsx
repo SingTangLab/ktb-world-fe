@@ -1,10 +1,15 @@
 import styled from 'styled-components'
+import { ContentContainer } from './Laundry'
+import { SelectBar } from '../components/SelectBar'
 
 export function Home() {
   return (
-    <HomeContainer>
-      <HomeTitle>Home</HomeTitle>
-    </HomeContainer>
+    <ContentContainer>
+      <SelectBar />
+      <HomeContainer>
+        <HomeTitle>Home</HomeTitle>
+      </HomeContainer>
+    </ContentContainer>
   )
 }
 

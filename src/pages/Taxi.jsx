@@ -1,10 +1,15 @@
 import styled from 'styled-components'
+import { SelectBar } from '../components/SelectBar'
+import { ContentContainer } from './Laundry'
 
 export function Taxi() {
   return (
-    <TaxiContainer>
-      <TaxiTitle>Taxi</TaxiTitle>
-    </TaxiContainer>
+    <ContentContainer>
+      <SelectBar />
+      <TaxiContainer>
+        <TaxiTitle>Taxi</TaxiTitle>
+      </TaxiContainer>
+    </ContentContainer>
   )
 }
 

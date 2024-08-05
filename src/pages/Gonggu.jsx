@@ -1,10 +1,15 @@
 import styled from 'styled-components'
+import { ContentContainer } from './Laundry'
+import { SelectBar } from '../components/SelectBar'
 
 export function Gonggu() {
   return (
-    <GongguContainer>
-      <GongguTitle>Gonggu</GongguTitle>
-    </GongguContainer>
+    <ContentContainer>
+      <SelectBar />
+      <GongguContainer>
+        <GongguTitle>Gonggu</GongguTitle>
+      </GongguContainer>
+    </ContentContainer>
   )
 }
 

@@ -1,12 +1,23 @@
 import styled from 'styled-components'
+import { SelectBar } from '../components/SelectBar'
 
 export function Laundry() {
   return (
-    <LaundryContainer>
-      <LaundryTitle>Laundry</LaundryTitle>
-    </LaundryContainer>
+    <ContentContainer>
+      <SelectBar />
+      <LaundryContainer>
+        <LaundryTitle>Laundry</LaundryTitle>
+      </LaundryContainer>
+    </ContentContainer>
   )
 }
+
+export const ContentContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`
 
 const LaundryContainer = styled.div`
   padding: 16px;

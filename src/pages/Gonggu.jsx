@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import { ContentContainer } from './Laundry'
 import { SelectBar } from '../components/SelectBar'
+import Ticket from '../components/Ticket'
 
 export function Gonggu() {
   return (
@@ -8,6 +9,7 @@ export function Gonggu() {
       <SelectBar />
       <GongguContainer>
         <GongguTitle>Gonggu</GongguTitle>
+        <Ticket />
       </GongguContainer>
     </ContentContainer>
   )

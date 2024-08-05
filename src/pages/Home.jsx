@@ -1,19 +1,15 @@
 import styled from 'styled-components'
-import { ContentContainer } from './Laundry'
-import { SelectBar } from '../components/SelectBar'
 
 export function Home() {
   return (
-    <ContentContainer>
-      <SelectBar />
-      <HomeContainer>
-        <HomeTitle>Home</HomeTitle>
-      </HomeContainer>
-    </ContentContainer>
+    <HomeContainer>
+      <HomeTitle>Home</HomeTitle>
+    </HomeContainer>
   )
 }
 
 const HomeContainer = styled.div`
+  margin: 0 auto;
   padding: 16px;
 `
 

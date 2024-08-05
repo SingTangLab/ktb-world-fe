@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import { SelectBar } from '../components/SelectBar'
 import { ContentContainer } from './Laundry'
+import Ticket from '../components/Ticket'
 
 export function Taxi() {
   return (
@@ -8,6 +9,7 @@ export function Taxi() {
       <SelectBar />
       <TaxiContainer>
         <TaxiTitle>Taxi</TaxiTitle>
+        <Ticket />
       </TaxiContainer>
     </ContentContainer>
   )

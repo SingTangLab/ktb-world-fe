@@ -1,16 +1,20 @@
 import styled from 'styled-components'
+import { Category } from './Category'
 
 export function Header() {
   const nickname = 'seny.park'
 
   return (
-    <HeaderContainer>
-      <Title>KTB WORLD</Title>
-      <Profile>
-        <Circle>{nickname[0]}</Circle>
-        <NickName>{nickname}</NickName>
-      </Profile>
-    </HeaderContainer>
+    <>
+      <HeaderContainer>
+        <Title>KTB WORLD</Title>
+        <Profile>
+          <Circle>{nickname[0]}</Circle>
+          <NickName>{nickname}</NickName>
+        </Profile>
+      </HeaderContainer>
+      <Category />
+    </>
   )
 }
 

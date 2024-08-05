@@ -5,7 +5,7 @@ export function Header() {
   const nickname = 'seny.park'
 
   return (
-    <>
+    <Container>
       <HeaderContainer>
         <Title>KTB WORLD</Title>
         <Profile>
@@ -14,12 +14,18 @@ export function Header() {
         </Profile>
       </HeaderContainer>
       <Category />
-    </>
+    </Container>
   )
 }
 
+const Container = styled.div`
+  /* width: 360px; */
+  margin: 0 auto;
+`
+
 const HeaderContainer = styled.header`
   height: 55px;
+  width: 100%;
   padding: 18px 16px;
   box-sizing: border-box;
   font-weight: 600;

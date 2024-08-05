@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { Category } from './Category'
 
@@ -7,8 +8,8 @@ export function Header() {
   return (
     <Container>
       <HeaderContainer>
-        <Title>KTB WORLD</Title>
-        <Profile>
+        <Title to='/'>KTB WORLD</Title>
+        <Profile to='/user'>
           <Circle>{nickname[0]}</Circle>
           <NickName>{nickname}</NickName>
         </Profile>
@@ -34,10 +35,15 @@ const HeaderContainer = styled.header`
   justify-content: space-between;
 `
 
-const Title = styled.h1``
-const Profile = styled.div`
+const Title = styled(Link)`
+  text-decoration: none;
+  color: inherit;
+`
+const Profile = styled(Link)`
   display: flex;
   align-items: center;
+  text-decoration: none;
+  color: inherit;
 `
 
 const Circle = styled.div`

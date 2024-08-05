@@ -5,6 +5,10 @@ import styled, { css } from 'styled-components'
 export function Category() {
   const location = useLocation()
 
+  if (location.pathname === '/user') {
+    return null
+  }
+
   return (
     <CategoryContainer>
       <CategoryItem to='/' active={location.pathname === '/'}>

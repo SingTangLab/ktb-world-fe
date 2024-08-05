@@ -1,9 +1,11 @@
 import styled from 'styled-components'
+import Ticket from '../components/Ticket'
 
 export function Gonggu() {
   return (
     <GongguContainer>
       <GongguTitle>Gonggu</GongguTitle>
+      <Ticket />
     </GongguContainer>
   )
 }

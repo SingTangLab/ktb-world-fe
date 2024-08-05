@@ -1,10 +1,13 @@
 import styled from 'styled-components'
+import { ContentContainer } from './Laundry'
 
 export function Trip() {
   return (
-    <TripContainer>
-      <TripTitle>Trip</TripTitle>
-    </TripContainer>
+    <ContentContainer>
+      <TripContainer>
+        <TripTitle>Trip</TripTitle>
+      </TripContainer>
+    </ContentContainer>
   )
 }
 

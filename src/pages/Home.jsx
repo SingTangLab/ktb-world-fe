@@ -1,17 +1,33 @@
 import styled from 'styled-components'
+import { SelectBar } from '../components/SelectBar'
 import Ticket from '../components/Ticket'
 
 export function Home() {
+  const tickets = Array.from({ length: 10 }) // Creates an array with 10 undefined elements
   return (
-    <HomeContainer>
-      <HomeTitle>HOME</HomeTitle>
-    </HomeContainer>
+    <ContentContainer>
+      <SelectBar />
+      <HomeContainer>
+        {tickets.map((_, index) => (
+          <Ticket key={index} />
+        ))}
+      </HomeContainer>
+    </ContentContainer>
   )
 }
 
+export const ContentContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`
+
 const HomeContainer = styled.div`
-  margin: 0 auto;
-  padding: 16px;
+  padding: 0px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 `
 
 const HomeTitle = styled.h2`

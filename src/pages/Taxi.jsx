@@ -1,17 +1,24 @@
 import styled from 'styled-components'
+import { SelectBar } from '../components/SelectBar'
+import { ContentContainer } from './Laundry'
 import Ticket from '../components/Ticket'
 
 export function Taxi() {
   return (
-    <TaxiContainer>
-      <TaxiTitle>Taxi</TaxiTitle>
-      <Ticket />
-    </TaxiContainer>
+    <ContentContainer>
+      <SelectBar />
+      <TaxiContainer>
+        <Ticket />
+      </TaxiContainer>
+    </ContentContainer>
   )
 }
 
 const TaxiContainer = styled.div`
-  padding: 16px;
+  padding: 0px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 `
 
 const TaxiTitle = styled.h2`

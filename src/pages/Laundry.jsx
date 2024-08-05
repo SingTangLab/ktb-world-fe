@@ -9,7 +9,6 @@ export function Laundry() {
     <ContentContainer>
       <SelectBar />
       <LaundryContainer>
-        <LaundryTitle>Laundry</LaundryTitle>
         {tickets.map((_, index) => (
           <Ticket key={index} />
         ))}
@@ -26,7 +25,10 @@ export const ContentContainer = styled.div`
 `
 
 const LaundryContainer = styled.div`
-  padding: 16px;
+  padding: 0px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 `
 
 const LaundryTitle = styled.h2`

@@ -9,7 +9,7 @@ export default function Ticket() {
   const isLaundry = pathname.includes('/laundry')
   const isTaxi = pathname.includes('/taxi')
   const isGonggu = pathname.includes('/gonggu')
-
+  // TODO: 전체 페이지에서 세탁기, 택시, 공구 각각의 제목 붙여주는 방식으로 변경
   const title = isLaundry
     ? '세탁기'
     : isTaxi

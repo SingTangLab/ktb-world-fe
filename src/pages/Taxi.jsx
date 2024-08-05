@@ -8,7 +8,6 @@ export function Taxi() {
     <ContentContainer>
       <SelectBar />
       <TaxiContainer>
-        <TaxiTitle>Taxi</TaxiTitle>
         <Ticket />
       </TaxiContainer>
     </ContentContainer>
@@ -16,7 +15,10 @@ export function Taxi() {
 }
 
 const TaxiContainer = styled.div`
-  padding: 16px;
+  padding: 0px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 `
 
 const TaxiTitle = styled.h2`

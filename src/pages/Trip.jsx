@@ -14,6 +14,7 @@ export function TripPage() {
 }
 
 const TripContainer = styled.div`
+  height: fit-content;
   padding: 16px;
 `
 

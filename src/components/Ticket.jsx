@@ -32,7 +32,7 @@ export default function Ticket() {
             <div className={styles.description}>5장 이내만 가능합니다~~~</div>
             <div className={styles.info}>
               <div className={styles.color}>색상: 어두운 색, 밝은 색</div>
-              <div className={styles.dryer}>건조기: O</div>
+              <div className={styles.dryer}>건조기: O </div>
               <div className={styles.write}>
                 <div className={styles.writer}>모집자 : erica</div>
                 <div className={styles.writeTime}>작성 : 07:05</div>

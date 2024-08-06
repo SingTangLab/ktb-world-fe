@@ -1,100 +1,86 @@
 .main {
   margin-top: 125px;
+  left: 50%;
+  transform: translateX(-50%);
   width: 340px;
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .island {
   width: 100%;
-  opacity: 0.34;
+  height: 0;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  background: url('../images/map.jpg') no-repeat center center;
+  background-size: contain;
 }
 
 .name {
   width: 100%;
   height: 100%;
-  font-weight: bold;
+  font-weight: 500;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.region {
+  padding: 18px;
+  margin-top: -10px;
+  box-sizing: border-box;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  position: absolute;
+  gap: 3px;
+  cursor: pointer;
+  color: transparent;
+}
+
+.region:hover {
+  font-size: 1.1em;
 }
 
 .jeju {
-  left: 150px;
-  padding: 10px;
+  left: 140px;
   top: 50px;
-  box-sizing: border-box;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  z-index: 2;
-  padding: 5px;
-  position: absolute;
-  gap: 3px;
 }
 
 .jochun {
-  left: 220px;
-  padding: 10px;
-  top: 30px;
-  box-sizing: border-box;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  z-index: 2;
-  padding: 5px;
-  position: absolute;
-  gap: 3px;
+  left: 210px;
+  top: 25px;
+  display: flex;
+  flex-direction: row;
 }
 
 .sungsan {
   left: 250px;
-  padding: 10px;
   top: 80px;
-  box-sizing: border-box;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  z-index: 2;
-  padding: 5px;
-  position: absolute;
-  gap: 3px;
+  display: flex;
+  flex-direction: row;
 }
 
 .jungmoon {
-  left: 120px;
-  padding: 10px;
-  top: 130px;
-  box-sizing: border-box;
-  align-items: center;
-  justify-content: center;
-  z-index: 2;
-  padding: 5px;
+  left: 110px;
+  top: 120px;
   display: flex;
-  position: absolute;
-  gap: 3px;
+  flex-direction: row;
 }
 
 .daejung {
-  left: 30px;
-  padding: 10px;
-  top: 130px;
-  box-sizing: border-box;
-  align-items: center;
-  justify-content: center;
-  z-index: 2;
-  padding: 5px;
+  left: 15px;
+  top: 140px;
   display: flex;
-  position: absolute;
-  gap: 3px;
+  flex-direction: row;
 }
 
 .hankyung {
-  left: 60px;
-  padding: 10px;
-  top: 90px;
-  box-sizing: border-box;
-  align-items: center;
-  justify-content: center;
-  z-index: 2;
-  padding: 5px;
+  left: 10px;
+  top: 80px;
   display: flex;
-  position: absolute;
-  gap: 3px;
+  flex-direction: row;
+  padding-bottom: 10px;
 }

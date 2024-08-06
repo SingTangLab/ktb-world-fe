@@ -18,7 +18,7 @@ const Title = styled.h2`
 const Container = styled.div`
   width: 360px;
   /* margin-top: 5px; */
-  padding: 0 16px;
+  padding: 0 25px;
   box-sizing: border-box;
   display: flex;
   /* justify-content: space-between; */

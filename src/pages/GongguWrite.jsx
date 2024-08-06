@@ -2,17 +2,7 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { DownOutlined } from '@ant-design/icons'
-import {
-  Button,
-  Form,
-  Input,
-  InputNumber,
-  Radio,
-  Select,
-  Switch,
-  Row,
-  Col,
-} from 'antd'
+import { Button, Form, Input, InputNumber, Radio, Select } from 'antd'
 
 const { TextArea } = Input
 

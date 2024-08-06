@@ -6,6 +6,7 @@ export function Trip() {
     <ContentContainer>
       <TripContainer>
         <TripTitle>Trip</TripTitle>
+        <TripEntry />
       </TripContainer>
     </ContentContainer>
   )

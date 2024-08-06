@@ -1,10 +1,16 @@
-import React, { useState } from 'react'
+import { useState, useEffect } from 'react'
 import styles from '../styles/TripEntry.module.css'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 
 export default function TripEntry() {
   const navigate = useNavigate()
   const [visibleImage, setVisibleImage] = useState('map')
+  const location = useLocation()
+
+  // URL에서 query parameter를 추출
+  const queryParams = new URLSearchParams(location.search)
+  const section = queryParams.get('section')
+  const [backgroundImage, setBackgroundImage] = useState('map.jpg')
 
   const handleMouseEnter = (region) => {
     setVisibleImage(`map-${region}`)
@@ -12,6 +18,13 @@ export default function TripEntry() {
 
   const handleMouseLeave = () => {
     setVisibleImage('map')
+  }
+
+  const handleClick = (section) => {
+    navigate({
+      pathname: '/trip',
+      search: `?section=${section}`,
+    })
   }
 
   return (
@@ -70,7 +83,7 @@ export default function TripEntry() {
       <div className={styles.name}>
         <div
           className={`${styles.region} ${styles.jeju}`}
-          onClick={() => navigate('/trip/north')}
+          onClick={() => handleClick('1')}
           onMouseEnter={() => handleMouseEnter('jeju')}
           onMouseLeave={handleMouseLeave}
         >
@@ -78,7 +91,7 @@ export default function TripEntry() {
         </div>
         <div
           className={`${styles.region} ${styles.jochun}`}
-          onClick={() => navigate('/trip/north-east')}
+          onClick={() => handleClick('2')}
           onMouseEnter={() => handleMouseEnter('jochun')}
           onMouseLeave={handleMouseLeave}
         >
@@ -87,7 +100,7 @@ export default function TripEntry() {
         </div>
         <div
           className={`${styles.region} ${styles.sungsan}`}
-          onClick={() => navigate('/trip/south-east')}
+          onClick={() => handleClick('3')}
           onMouseEnter={() => handleMouseEnter('sungsan')}
           onMouseLeave={handleMouseLeave}
         >
@@ -96,7 +109,7 @@ export default function TripEntry() {
         </div>
         <div
           className={`${styles.region} ${styles.jungmoon}`}
-          onClick={() => navigate('/trip/south')}
+          onClick={() => handleClick('4')}
           onMouseEnter={() => handleMouseEnter('jungmoon')}
           onMouseLeave={handleMouseLeave}
         >
@@ -106,7 +119,7 @@ export default function TripEntry() {
         </div>
         <div
           className={`${styles.region} ${styles.daejung}`}
-          onClick={() => navigate('/trip/south-west')}
+          onClick={() => handleClick('5')}
           onMouseEnter={() => handleMouseEnter('daejung')}
           onMouseLeave={handleMouseLeave}
         >
@@ -115,7 +128,7 @@ export default function TripEntry() {
         </div>
         <div
           className={`${styles.region} ${styles.hankyung}`}
-          onClick={() => navigate('/trip/north-west')}
+          onClick={() => handleClick('6')}
           onMouseEnter={() => handleMouseEnter('hankyung')}
           onMouseLeave={handleMouseLeave}
         >

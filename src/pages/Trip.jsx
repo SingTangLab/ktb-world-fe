@@ -1,12 +1,20 @@
 import styled from 'styled-components'
-import { ContentContainer } from './Laundry'
 import TripEntry from '../components/TripEntry'
+import { TripListPage } from './TripList'
+import { useLocation } from 'react-router-dom'
 
 export function TripPage() {
+  const location = useLocation()
+
+  // URL에서 query parameter를 추출
+  const queryParams = new URLSearchParams(location.search)
+  const section = queryParams.get('section')
+
   return (
     <div>
       <TripContainer>
         <TripEntry />
+        <TripListPage section={section} />
       </TripContainer>
     </div>
   )

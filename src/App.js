@@ -8,7 +8,6 @@ import { GongguPage } from './pages/Gonggu'
 import { TripPage } from './pages/Trip'
 import { UserPage } from './pages/User'
 import { TicketPage } from './pages/Ticket'
-
 function App() {
   return (
     <Router>

@@ -1,7 +1,13 @@
 import React, { useState } from 'react'
 import styles from '../styles/Ticket.module.css'
-import { useLocation } from 'react-router-dom'
-import { laundryData, taxiData, gongguData, allData } from '../data/data' // 목업 데이터 임포트
+import { useSearchParams, useLocation, Link } from 'react-router-dom'
+import {
+  laundryData,
+  taxiData,
+  gongguData,
+  allData,
+  myData,
+} from '../data/data' // 목업 데이터 임포트
 import check from '../images/check.png'
 import checkGray from '../images/notcheck.png'
 import DraggableModal from './DraggableModal'
@@ -10,47 +16,57 @@ export default function Ticket() {
   const location = useLocation()
   const pathname = location.pathname
 
+  const [searchParams] = useSearchParams()
+  const filter = searchParams.get('filter') || '전체'
+
   const isLaundry = pathname.includes('/laundry')
   const isTaxi = pathname.includes('/taxi')
   const isGonggu = pathname.includes('/gonggu')
-
-  // 전체 페이지에서 세탁기, 택시, 공구 각각의 제목 붙여주는 방식으로 변경
-  const title = isLaundry
-    ? '세탁기'
-    : isTaxi
-    ? '택시'
-    : isGonggu
-    ? '공구'
-    : '전체'
+  const isUser = pathname.includes('/user')
 
   // 세탁 티켓 데이터 가져오기
   const tickets = isLaundry
-    ? laundryData.tickets
+    ? filter !== '전체'
+      ? laundryData.tickets.filter((ticket) => ticket.status === filter)
+      : laundryData.tickets
     : isTaxi
-    ? taxiData.tickets
+    ? filter !== '전체'
+      ? taxiData.tickets.filter((ticket) => ticket.status === filter)
+      : taxiData.tickets
     : isGonggu
-    ? gongguData.tickets
+    ? filter !== '전체'
+      ? gongguData.tickets.filter((ticket) => ticket.status === filter)
+      : gongguData.tickets
+    : isUser
+    ? filter !== '전체'
+      ? myData.tickets.filter((ticket) => ticket.status === filter)
+      : myData.tickets
+    : filter !== '전체'
+    ? allData.tickets.filter((ticket) => ticket.status === filter)
     : allData.tickets
 
   // 로그인된 유저의 ID (예시)
-  const loggedInUserId = 1
+  const loggedInUserId = 20
 
   return tickets.map((ticket) =>
     ticket.category === '세탁' ? (
       <Laundry
         key={ticket.ticket_id}
+        isUser={isUser}
         ticket={ticket}
         loggedInUserId={loggedInUserId}
       />
     ) : ticket.category === '택시' ? (
       <Taxi
         key={ticket.ticket_id}
+        isUser={isUser}
         ticket={ticket}
         loggedInUserId={loggedInUserId}
       />
     ) : (
       <Gonggu
         key={ticket.ticket_id}
+        isUser={isUser}
         ticket={ticket}
         loggedInUserId={loggedInUserId}
       />
@@ -58,13 +74,17 @@ export default function Ticket() {
   )
 }
 
-function Laundry({ ticket, loggedInUserId }) {
+function Laundry({ isUser, ticket, loggedInUserId }) {
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [modalContent, setModalContent] = useState('')
   const [modalTitle, setModalTitle] = useState('')
   const [okButtonProps, setOkButtonProps] = useState({})
   const [okText, setOkText] = useState('확인')
   const [cancelText, setCancelText] = useState('닫기')
+  const [isChecked, setIsChecked] = useState(
+    ticket.participant_user.includes(loggedInUserId)
+  )
+  const [isClosed, setIsClosed] = useState(ticket.status === '마감')
 
   const isAuthor = ticket.user_id === loggedInUserId
   const isParticipant = ticket.participant_user.includes(loggedInUserId)
@@ -86,6 +106,7 @@ function Laundry({ ticket, loggedInUserId }) {
 
   const handleOk = () => {
     console.log('확인 클릭됨')
+    setIsChecked(true)
     setIsModalVisible(false)
   }
 
@@ -93,8 +114,16 @@ function Laundry({ ticket, loggedInUserId }) {
     setIsModalVisible(false)
   }
 
+  const handleClose = () => {
+    setIsClosed(true)
+    setIsModalVisible(false)
+  }
+
   return (
-    <div className={styles.container}>
+    <Link
+      className={styles.container}
+      to={isUser && `/user/${ticket.ticket_id}`}
+    >
       <div className={styles.main}>
         <div className={styles.top}>
           <div className={styles.left}>
@@ -131,7 +160,9 @@ function Laundry({ ticket, loggedInUserId }) {
               {ticket.participant_user.length} / {ticket.capacity}
             </div>
             <div className={styles.status}>
-              {ticket.status === '마감' ? (
+              {isClosed ? (
+                '마감'
+              ) : ticket.status === '마감' ? (
                 isAuthor ? (
                   '마감'
                 ) : (
@@ -147,7 +178,10 @@ function Laundry({ ticket, loggedInUserId }) {
                     showModal(
                       '인원 모집이 완료되지 않았습니다. 정말 마감하시겠습니까?',
                       '마감 확인',
-                      { style: { backgroundColor: 'red', borderColor: 'red' } },
+                      {
+                        style: { backgroundColor: 'red', borderColor: 'red' },
+                        onClick: handleClose,
+                      },
                       '마감',
                       '닫기'
                     )
@@ -157,11 +191,11 @@ function Laundry({ ticket, loggedInUserId }) {
                 </span>
               ) : (
                 <img
-                  src={isParticipant ? check : checkGray}
+                  src={isChecked ? check : checkGray}
                   className={styles.statusImage}
                   alt='Status'
                   onClick={() =>
-                    !isParticipant &&
+                    !isChecked &&
                     showModal(
                       '확인 버튼을 누르면 참여가 확정됩니다.',
                       '참여 확인'
@@ -183,17 +217,21 @@ function Laundry({ ticket, loggedInUserId }) {
         okText={okText}
         cancelText={cancelText}
       />
-    </div>
+    </Link>
   )
 }
 
-function Taxi({ ticket, loggedInUserId }) {
+function Taxi({ isUser, ticket, loggedInUserId }) {
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [modalContent, setModalContent] = useState('')
   const [modalTitle, setModalTitle] = useState('')
   const [okButtonProps, setOkButtonProps] = useState({})
   const [okText, setOkText] = useState('확인')
   const [cancelText, setCancelText] = useState('닫기')
+  const [isChecked, setIsChecked] = useState(
+    ticket.participant_user.includes(loggedInUserId)
+  )
+  const [isClosed, setIsClosed] = useState(ticket.status === '마감')
 
   const isAuthor = ticket.user_id === loggedInUserId
   const isParticipant = ticket.participant_user.includes(loggedInUserId)
@@ -215,6 +253,7 @@ function Taxi({ ticket, loggedInUserId }) {
 
   const handleOk = () => {
     console.log('확인 클릭됨')
+    setIsChecked(true)
     setIsModalVisible(false)
   }
 
@@ -222,8 +261,16 @@ function Taxi({ ticket, loggedInUserId }) {
     setIsModalVisible(false)
   }
 
+  const handleClose = () => {
+    setIsClosed(true)
+    setIsModalVisible(false)
+  }
+
   return (
-    <div className={styles.container}>
+    <Link
+      className={styles.container}
+      to={isUser && `/user/${ticket.ticket_id}`}
+    >
       <div className={styles.main}>
         <div key={ticket.ticket_id} className={styles.ticket}>
           <div className={styles.top}>
@@ -253,7 +300,9 @@ function Taxi({ ticket, loggedInUserId }) {
                 {ticket.participant_user.length} / {ticket.capacity}
               </div>
               <div className={styles.status}>
-                {ticket.status === '마감' ? (
+                {isClosed ? (
+                  '마감'
+                ) : ticket.status === '마감' ? (
                   isAuthor ? (
                     '마감'
                   ) : (
@@ -271,6 +320,7 @@ function Taxi({ ticket, loggedInUserId }) {
                         '마감 확인',
                         {
                           style: { backgroundColor: 'red', borderColor: 'red' },
+                          onClick: handleClose,
                         },
                         '마감',
                         '닫기'
@@ -281,11 +331,11 @@ function Taxi({ ticket, loggedInUserId }) {
                   </span>
                 ) : (
                   <img
-                    src={isParticipant ? check : checkGray}
+                    src={isChecked ? check : checkGray}
                     className={styles.statusImage}
                     alt='Status'
                     onClick={() =>
-                      !isParticipant &&
+                      !isChecked &&
                       showModal(
                         '확인 버튼을 누르면 참여가 확정됩니다.',
                         '참여 확인'
@@ -313,17 +363,21 @@ function Taxi({ ticket, loggedInUserId }) {
         okText={okText}
         cancelText={cancelText}
       />
-    </div>
+    </Link>
   )
 }
 
-function Gonggu({ ticket, loggedInUserId }) {
+function Gonggu({ isUser, ticket, loggedInUserId }) {
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [modalContent, setModalContent] = useState('')
   const [modalTitle, setModalTitle] = useState('')
   const [okButtonProps, setOkButtonProps] = useState({})
   const [okText, setOkText] = useState('확인')
   const [cancelText, setCancelText] = useState('닫기')
+  const [isChecked, setIsChecked] = useState(
+    ticket.participant_user.includes(loggedInUserId)
+  )
+  const [isClosed, setIsClosed] = useState(ticket.status === '마감')
 
   const isAuthor = ticket.user_id === loggedInUserId
   const isParticipant = ticket.participant_user.includes(loggedInUserId)
@@ -345,6 +399,7 @@ function Gonggu({ ticket, loggedInUserId }) {
 
   const handleOk = () => {
     console.log('확인 클릭됨')
+    setIsChecked(true)
     setIsModalVisible(false)
   }
 
@@ -352,8 +407,16 @@ function Gonggu({ ticket, loggedInUserId }) {
     setIsModalVisible(false)
   }
 
+  const handleClose = () => {
+    setIsClosed(true)
+    setIsModalVisible(false)
+  }
+
   return (
-    <div className={styles.container}>
+    <Link
+      className={styles.container}
+      to={isUser && `/user/${ticket.ticket_id}`}
+    >
       <div className={styles.main}>
         <div key={ticket.ticket_id} className={styles.ticket}>
           <div className={styles.top}>
@@ -383,7 +446,9 @@ function Gonggu({ ticket, loggedInUserId }) {
                 {ticket.participant_user.length} / {ticket.capacity}
               </div>
               <div className={styles.status}>
-                {ticket.status === '마감' ? (
+                {isClosed ? (
+                  '마감'
+                ) : ticket.status === '마감' ? (
                   isAuthor ? (
                     '마감'
                   ) : (
@@ -401,6 +466,7 @@ function Gonggu({ ticket, loggedInUserId }) {
                         '마감 확인',
                         {
                           style: { backgroundColor: 'red', borderColor: 'red' },
+                          onClick: handleClose,
                         },
                         '마감',
                         '닫기'
@@ -411,11 +477,11 @@ function Gonggu({ ticket, loggedInUserId }) {
                   </span>
                 ) : (
                   <img
-                    src={isParticipant ? check : checkGray}
+                    src={isChecked ? check : checkGray}
                     className={styles.statusImage}
                     alt='Status'
                     onClick={() =>
-                      !isParticipant &&
+                      !isChecked &&
                       showModal(
                         '확인 버튼을 누르면 참여가 확정됩니다.',
                         '참여 확인'
@@ -438,6 +504,6 @@ function Gonggu({ ticket, loggedInUserId }) {
         okText={okText}
         cancelText={cancelText}
       />
-    </div>
+    </Link>
   )
 }

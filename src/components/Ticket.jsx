@@ -84,6 +84,7 @@ function Laundry({ isUser, ticket, loggedInUserId }) {
   const [isChecked, setIsChecked] = useState(
     ticket.participant_user.includes(loggedInUserId)
   )
+  const [isClosed, setIsClosed] = useState(ticket.status === '마감')
 
   const isAuthor = ticket.user_id === loggedInUserId
   const isParticipant = ticket.participant_user.includes(loggedInUserId)
@@ -110,6 +111,11 @@ function Laundry({ isUser, ticket, loggedInUserId }) {
   }
 
   const handleCancel = () => {
+    setIsModalVisible(false)
+  }
+
+  const handleClose = () => {
+    setIsClosed(true)
     setIsModalVisible(false)
   }
 
@@ -154,7 +160,9 @@ function Laundry({ isUser, ticket, loggedInUserId }) {
               {ticket.participant_user.length} / {ticket.capacity}
             </div>
             <div className={styles.status}>
-              {ticket.status === '마감' ? (
+              {isClosed ? (
+                '마감'
+              ) : ticket.status === '마감' ? (
                 isAuthor ? (
                   '마감'
                 ) : (
@@ -170,7 +178,10 @@ function Laundry({ isUser, ticket, loggedInUserId }) {
                     showModal(
                       '인원 모집이 완료되지 않았습니다. 정말 마감하시겠습니까?',
                       '마감 확인',
-                      { style: { backgroundColor: 'red', borderColor: 'red' } },
+                      {
+                        style: { backgroundColor: 'red', borderColor: 'red' },
+                        onClick: handleClose,
+                      },
                       '마감',
                       '닫기'
                     )
@@ -220,6 +231,7 @@ function Taxi({ isUser, ticket, loggedInUserId }) {
   const [isChecked, setIsChecked] = useState(
     ticket.participant_user.includes(loggedInUserId)
   )
+  const [isClosed, setIsClosed] = useState(ticket.status === '마감')
 
   const isAuthor = ticket.user_id === loggedInUserId
   const isParticipant = ticket.participant_user.includes(loggedInUserId)
@@ -246,6 +258,11 @@ function Taxi({ isUser, ticket, loggedInUserId }) {
   }
 
   const handleCancel = () => {
+    setIsModalVisible(false)
+  }
+
+  const handleClose = () => {
+    setIsClosed(true)
     setIsModalVisible(false)
   }
 
@@ -283,7 +300,9 @@ function Taxi({ isUser, ticket, loggedInUserId }) {
                 {ticket.participant_user.length} / {ticket.capacity}
               </div>
               <div className={styles.status}>
-                {ticket.status === '마감' ? (
+                {isClosed ? (
+                  '마감'
+                ) : ticket.status === '마감' ? (
                   isAuthor ? (
                     '마감'
                   ) : (
@@ -301,6 +320,7 @@ function Taxi({ isUser, ticket, loggedInUserId }) {
                         '마감 확인',
                         {
                           style: { backgroundColor: 'red', borderColor: 'red' },
+                          onClick: handleClose,
                         },
                         '마감',
                         '닫기'
@@ -357,6 +377,7 @@ function Gonggu({ isUser, ticket, loggedInUserId }) {
   const [isChecked, setIsChecked] = useState(
     ticket.participant_user.includes(loggedInUserId)
   )
+  const [isClosed, setIsClosed] = useState(ticket.status === '마감')
 
   const isAuthor = ticket.user_id === loggedInUserId
   const isParticipant = ticket.participant_user.includes(loggedInUserId)
@@ -383,6 +404,11 @@ function Gonggu({ isUser, ticket, loggedInUserId }) {
   }
 
   const handleCancel = () => {
+    setIsModalVisible(false)
+  }
+
+  const handleClose = () => {
+    setIsClosed(true)
     setIsModalVisible(false)
   }
 
@@ -420,7 +446,9 @@ function Gonggu({ isUser, ticket, loggedInUserId }) {
                 {ticket.participant_user.length} / {ticket.capacity}
               </div>
               <div className={styles.status}>
-                {ticket.status === '마감' ? (
+                {isClosed ? (
+                  '마감'
+                ) : ticket.status === '마감' ? (
                   isAuthor ? (
                     '마감'
                   ) : (
@@ -438,6 +466,7 @@ function Gonggu({ isUser, ticket, loggedInUserId }) {
                         '마감 확인',
                         {
                           style: { backgroundColor: 'red', borderColor: 'red' },
+                          onClick: handleClose,
                         },
                         '마감',
                         '닫기'

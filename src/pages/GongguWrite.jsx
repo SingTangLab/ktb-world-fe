@@ -11,6 +11,7 @@ export function GongguWritePage() {
 
 const GongguWriteContainer = styled.div`
   padding: 16px;
+  margin-top: 70px;
 `
 
 const GongguWriteTitle = styled.h2`

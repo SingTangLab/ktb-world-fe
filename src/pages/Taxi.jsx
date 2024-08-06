@@ -15,7 +15,9 @@ export function TaxiPage() {
 }
 
 const TaxiContainer = styled.div`
-  padding: 0px 16px 16px;
+  width: 100%;
+  padding: 0px 16px;
+  box-sizing: border-box;
   display: flex;
   justifu-content: flex-start;
   flex-direction: column;

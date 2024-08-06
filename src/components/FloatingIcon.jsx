@@ -7,7 +7,11 @@ export default function FloatingIcon() {
   const pathname = location.pathname
   const navigate = useNavigate()
 
-  if (pathname === '/' || pathname.includes('write')) {
+  if (
+    pathname === '/' ||
+    pathname.includes('write') ||
+    pathname.includes('trip')
+  ) {
     return null
   }
 

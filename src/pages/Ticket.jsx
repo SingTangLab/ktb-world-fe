@@ -178,7 +178,6 @@ const TicketContents = styled.div`
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  gap: 8px;
 `
 
 const TicketContent = styled.div`

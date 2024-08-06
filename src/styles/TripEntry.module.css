@@ -1,0 +1,15 @@
+.main {
+  margin-top: 30px;
+  width: 340px;
+}
+
+.island {
+  width: 100%;
+}
+
+.jeju {
+  right: 170px;
+  z-index: 2;
+
+  position: absolute;
+}

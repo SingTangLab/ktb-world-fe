@@ -138,7 +138,7 @@ export function TaxiWritePage() {
 
 const TaxiWriteContainer = styled.div`
   padding: 16px;
-  margin-top: 70px;
+  margin-top: 60px;
 `
 
 const TaxiWriteTitle = styled.h2`

@@ -20,6 +20,9 @@ export function UserPage() {
 const UserContainer = styled.div`
   padding: 16px;
   display: flex;
+  width: 100%;
+  padding: 0 16px;
+  box-sizing: border-box;
   flex-direction: column;
   gap: 10px;
 `

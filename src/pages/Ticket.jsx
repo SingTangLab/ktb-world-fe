@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import { ContentContainer } from './Laundry'
 import { SelectBar } from '../components/SelectBar'
 
-export function Ticket() {
+export function TicketPage() {
   return (
     <ContentContainer>
       <SelectBar />

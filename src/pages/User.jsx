@@ -1,12 +1,14 @@
 import styled from 'styled-components'
 import { ContentContainer } from './Laundry'
 import { SelectBar } from '../components/SelectBar'
+import TicketBorder from '../components/TicketBorder'
 
-export function User() {
+export function UserPage() {
   return (
     <ContentContainer>
       <UserContainer>
         <UserTitle>User</UserTitle>
+        <TicketBorder />
       </UserContainer>
     </ContentContainer>
   )

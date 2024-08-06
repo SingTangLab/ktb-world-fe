@@ -4,7 +4,7 @@ import { SelectBar } from '../components/SelectBar'
 import Ticket from '../components/Ticket'
 import { SelectState } from '../components/SelectState'
 
-export function Gonggu() {
+export function GongguPage() {
   return (
     <ContentContainer>
       <SelectBar title='공동구매' />

@@ -1,26 +1,26 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import './App.css'
 import { Header } from './components/Header'
-import { Home } from './pages/Home'
-import { Laundry } from './pages/Laundry'
-import { Taxi } from './pages/Taxi'
-import { Gonggu } from './pages/Gonggu'
-import { Trip } from './pages/Trip'
-import { User } from './pages/User'
-import { Ticket } from './pages/Ticket'
+import { HomePage } from './pages/Home'
+import { LaundryPage } from './pages/Laundry'
+import { TaxiPage } from './pages/Taxi'
+import { GongguPage } from './pages/Gonggu'
+import { TripPage } from './pages/Trip'
+import { UserPage } from './pages/User'
+import { TicketPage } from './pages/Ticket'
 
 function App() {
   return (
     <Router>
       <Header />
       <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/laundry' element={<Laundry />} />
-        <Route path='/taxi' element={<Taxi />} />
-        <Route path='/gonggu' element={<Gonggu />} />
-        <Route path='/trip' element={<Trip />} />
-        <Route path='/user' element={<User />} />
-        <Route path='/user/:id' element={<Ticket />} />
+        <Route path='/' element={<HomePage />} />
+        <Route path='/laundry' element={<LaundryPage />} />
+        <Route path='/taxi' element={<TaxiPage />} />
+        <Route path='/gonggu' element={<GongguPage />} />
+        <Route path='/trip' element={<TripPage />} />
+        <Route path='/user' element={<UserPage />} />
+        <Route path='/user/:id' element={<TicketPage />} />
       </Routes>
     </Router>
   )

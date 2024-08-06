@@ -3,7 +3,7 @@ import { SelectBar } from '../components/SelectBar'
 import { ContentContainer } from './Laundry'
 import Ticket from '../components/Ticket'
 
-export function Taxi() {
+export function TaxiPage() {
   return (
     <ContentContainer>
       <SelectBar />

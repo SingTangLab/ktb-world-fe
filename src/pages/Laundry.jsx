@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import { SelectBar } from '../components/SelectBar'
 import Ticket from '../components/Ticket'
 
-export function Laundry() {
+export function LaundryPage() {
   const tickets = Array.from({ length: 10 }) // Creates an array with 10 undefined elements
 
   return (

@@ -1,11 +1,13 @@
 import styled from 'styled-components'
 import { ContentContainer } from './Laundry'
+import TripEntry from '../components/TripEntry'
 
 export function Trip() {
   return (
     <ContentContainer>
       <TripContainer>
         <TripTitle>Trip</TripTitle>
+        <TripEntry />
       </TripContainer>
     </ContentContainer>
   )

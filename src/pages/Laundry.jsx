@@ -9,9 +9,7 @@ export function LaundryPage() {
     <ContentContainer>
       <SelectBar />
       <LaundryContainer>
-        {tickets.map((_, index) => (
-          <Ticket key={index} />
-        ))}
+        <Ticket />
       </LaundryContainer>
     </ContentContainer>
   )

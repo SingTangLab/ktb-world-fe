@@ -8,9 +8,7 @@ export function HomePage() {
     <ContentContainer>
       <SelectBar />
       <HomeContainer>
-        {tickets.map((_, index) => (
-          <Ticket key={index} />
-        ))}
+        <Ticket />
       </HomeContainer>
     </ContentContainer>
   )

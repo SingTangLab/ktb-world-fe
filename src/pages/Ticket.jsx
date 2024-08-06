@@ -2,35 +2,54 @@ import styled from 'styled-components'
 import { ContentContainer } from './Laundry'
 import ticketTop from '../images/ticketTop.png'
 import TicketIcon from '../images/TicketIcon'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
+import { myData } from '../data/data'
 
 export function TicketPage() {
   const navigate = useNavigate()
   const titleList = ['제목', '내용', '참여', '계좌', '티켓 발급 날짜']
-  const ticketDetail = {
-    type: '세탁',
-    state: '빨래 중',
-    title: '흰 빨래 1명 급구',
-    content:
-      '흰빨래 1명 급구흰빨래 1명 급구흰빨래 1명 급구흰빨래 1명 급구흰빨래 1명 급구흰빨래 1명 급구흰빨래 1명 급구흰빨래 1명 급구흰빨래 1명 급구흰빨래 1명 급구흰빨래 1명 급구흰빨래 1명 급구',
-    members: [
-      'seny.park',
-      'jane.kim',
-      'john.lee',
-      'james.kim',
-      'jane.kim',
-      'john.lee',
-    ],
-    ticketDate: '07/10',
-    account: '국민은행 1000-203-12334',
-  }
+  const { id } = useParams()
 
-  const ticketContentList = [
-    { title: '제목', content: ticketDetail.title },
-    { title: '내용', content: ticketDetail.content },
-    { title: '참여', content: ticketDetail.members.join(', ') },
-    { title: '계좌', content: ticketDetail.account },
-  ]
+  const ticketDetailList = myData.tickets.map((ticket) => ({
+    id: ticket.ticket_id,
+    type: ticket.category,
+    state: ticket.status === '빨래중' ? '빨래 중' : ticket.status,
+    title: ticket.title,
+    content: `${ticket.description} ${ticket.description} ${ticket.description}`,
+    members: ticket.participant_user.map((userId) => {
+      const userNicknameMapping = {
+        20: 'user_20',
+        2: 'jane.kim',
+        4: 'john.lee',
+        3: 'lee.hyun',
+        5: 'park.jin',
+        8: 'kang.sohee',
+        9: 'kim.seung',
+        10: 'lee.sun',
+        11: 'james.kim',
+        12: 'jung.woo',
+        13: 'han.mira',
+        14: 'choi.hyun',
+        15: 'kang.sohee',
+        16: 'kim.woo',
+        17: 'lee.sun',
+      }
+      return userNicknameMapping[userId] || 'unknown'
+    }),
+    ticketDate: new Date(ticket.created_at).toLocaleDateString('ko-KR', {
+      month: '2-digit',
+      day: '2-digit',
+    }),
+    account: '국민은행 1000-203-12334',
+  }))
+
+  const nowTicket = ticketDetailList.find(
+    (ticket) => ticket.id === parseInt(id)
+  )
+
+  if (!nowTicket) {
+    return <div>티켓을 찾을 수 없습니다.</div>
+  }
 
   const handleClose = () => {
     navigate('/user')
@@ -44,16 +63,26 @@ export function TicketPage() {
           <WhiteBox />
           <TicketBox>
             <TicketContents>
-              {ticketContentList.map((item, index) => (
-                <TicketContent key={index}>
-                  <ContentTitle>{item.title}</ContentTitle>
-                  <ContentContent>{item.content}</ContentContent>
-                </TicketContent>
-              ))}
+              <TicketContent>
+                <ContentTitle>제목</ContentTitle>
+                <ContentContent>{nowTicket.title}</ContentContent>
+              </TicketContent>
+              <TicketContent>
+                <ContentTitle>내용</ContentTitle>
+                <ContentContent>{nowTicket.content}</ContentContent>
+              </TicketContent>
+              <TicketContent>
+                <ContentTitle>참여</ContentTitle>
+                <ContentContent>{nowTicket.members.join(', ')}</ContentContent>
+              </TicketContent>
+              <TicketContent>
+                <ContentTitle>계좌</ContentTitle>
+                <ContentContent>{nowTicket.account}</ContentContent>
+              </TicketContent>
               <TicketDate>
                 <ContentDateTitle>{titleList[4]}</ContentDateTitle>
                 <ContentDateContent>
-                  <TextAlign>{ticketDetail.ticketDate}</TextAlign>
+                  <TextAlign>{nowTicket.ticketDate}</TextAlign>
                 </ContentDateContent>
               </TicketDate>
 
@@ -67,8 +96,8 @@ export function TicketPage() {
               <TicketIcon />
             </TicketIconBox>
             <TicketText>
-              <TicketType>{ticketDetail.type}</TicketType>
-              <TicketSub>{ticketDetail.state}</TicketSub>
+              <TicketType>{nowTicket.type}</TicketType>
+              <TicketSub>{nowTicket.state}</TicketSub>
             </TicketText>
           </TicketTopContainer>
         </TicketContainer>

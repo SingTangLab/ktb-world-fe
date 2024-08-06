@@ -170,7 +170,6 @@ const FormContainer = styled.div`
 `
 
 const FormTitle = styled.h2`
-  /* margin-top: 60px; */
   font-size: 20px;
   font-weight: 600;
   text-align: center;

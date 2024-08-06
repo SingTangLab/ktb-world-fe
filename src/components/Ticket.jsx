@@ -1,7 +1,9 @@
+import React from 'react'
 import styles from '../styles/Ticket.module.css'
-import check from '../images/check.png'
 import { useLocation } from 'react-router-dom'
 import { laundryData, taxiData, gongguData, allData } from '../data/data' // 목업 데이터 임포트
+import check from '../images/check.png'
+import checkGray from '../images/notcheck.png'
 
 export default function Ticket() {
   const location = useLocation()
@@ -29,18 +31,36 @@ export default function Ticket() {
     ? gongguData.tickets
     : allData.tickets
 
+  // 로그인된 유저의 ID (예시)
+  const loggedInUserId = 1
+
   return tickets.map((ticket) =>
     ticket.category === '세탁' ? (
-      <Laundry key={ticket.ticket_id} ticket={ticket} />
+      <Laundry
+        key={ticket.ticket_id}
+        ticket={ticket}
+        loggedInUserId={loggedInUserId}
+      />
     ) : ticket.category === '택시' ? (
-      <Taxi key={ticket.ticket_id} ticket={ticket} />
+      <Taxi
+        key={ticket.ticket_id}
+        ticket={ticket}
+        loggedInUserId={loggedInUserId}
+      />
     ) : (
-      <Gonggu key={ticket.ticket_id} ticket={ticket} />
+      <Gonggu
+        key={ticket.ticket_id}
+        ticket={ticket}
+        loggedInUserId={loggedInUserId}
+      />
     )
   )
 }
 
-function Laundry({ ticket }) {
+function Laundry({ ticket, loggedInUserId }) {
+  const isAuthor = ticket.user_id === loggedInUserId
+  const isParticipant = ticket.participant_user.includes(loggedInUserId)
+
   return (
     <div className={styles.container}>
       <div className={`${styles.flag} ${styles.laundryFlag}`}>
@@ -54,7 +74,7 @@ function Laundry({ ticket }) {
             <div className={styles.info}>
               <div className={styles.color}>색상 : {ticket.laundry_color}</div>
               <div className={styles.dryer}>
-                건조기 : {ticket.is_dry ? 'O' : 'X'}{' '}
+                건조기 : {ticket.is_dry ? 'O' : 'X'}
               </div>
               <div className={styles.write}>
                 <div className={styles.writer}>모집자 : {ticket.nickname}</div>
@@ -63,7 +83,6 @@ function Laundry({ ticket }) {
                 </div>
               </div>
             </div>
-
             <div className={styles.bottom}>
               <div className={styles.bottomLeft}>
                 <div className={styles.start}>시작 : 07:40</div>
@@ -71,13 +90,30 @@ function Laundry({ ticket }) {
               </div>
             </div>
           </div>
-
           <div className={styles.right}>
             <div className={styles.people}>
               {ticket.participant_user.length} / {ticket.capacity}
             </div>
             <div className={styles.status}>
-              <img src={check} className={styles.statusImage} />
+              {ticket.status === '마감' ? (
+                isAuthor ? (
+                  '마감'
+                ) : (
+                  <img
+                    src={check}
+                    className={styles.statusImage}
+                    alt='Status'
+                  />
+                )
+              ) : isAuthor ? (
+                '마감하기'
+              ) : (
+                <img
+                  src={isParticipant ? check : checkGray}
+                  className={styles.statusImage}
+                  alt='Status'
+                />
+              )}
             </div>
           </div>
         </div>
@@ -86,7 +122,10 @@ function Laundry({ ticket }) {
   )
 }
 
-function Taxi({ ticket }) {
+function Taxi({ ticket, loggedInUserId }) {
+  const isAuthor = ticket.user_id === loggedInUserId
+  const isParticipant = ticket.participant_user.includes(loggedInUserId)
+
   return (
     <div className={styles.container}>
       <div className={`${styles.flag} ${styles.taxiFlag}`}>
@@ -109,13 +148,30 @@ function Taxi({ ticket }) {
                 </div>
               </div>
             </div>
-
             <div className={styles.right}>
               <div className={styles.people}>
-                {ticket.participant_user.length}/{ticket.capacity}
+                {ticket.participant_user.length} / {ticket.capacity}
               </div>
               <div className={styles.status}>
-                <img src={check} className={styles.statusImage} alt='Status' />
+                {ticket.status === '마감' ? (
+                  isAuthor ? (
+                    '마감'
+                  ) : (
+                    <img
+                      src={check}
+                      className={styles.statusImage}
+                      alt='Status'
+                    />
+                  )
+                ) : isAuthor ? (
+                  '마감하기'
+                ) : (
+                  <img
+                    src={isParticipant ? check : checkGray}
+                    className={styles.statusImage}
+                    alt='Status'
+                  />
+                )}
               </div>
             </div>
           </div>
@@ -130,7 +186,10 @@ function Taxi({ ticket }) {
   )
 }
 
-function Gonggu({ ticket }) {
+function Gonggu({ ticket, loggedInUserId }) {
+  const isAuthor = ticket.user_id === loggedInUserId
+  const isParticipant = ticket.participant_user.includes(loggedInUserId)
+
   return (
     <div className={styles.container}>
       <div className={`${styles.flag} ${styles.gongguFlag}`}>
@@ -155,10 +214,28 @@ function Gonggu({ ticket }) {
             </div>
             <div className={styles.right}>
               <div className={styles.people}>
-                {ticket.participant_user.length}/{ticket.capacity}
+                {ticket.participant_user.length} / {ticket.capacity}
               </div>
               <div className={styles.status}>
-                <img src={check} className={styles.statusImage} alt='Status' />
+                {ticket.status === '마감' ? (
+                  isAuthor ? (
+                    '마감'
+                  ) : (
+                    <img
+                      src={check}
+                      className={styles.statusImage}
+                      alt='Status'
+                    />
+                  )
+                ) : isAuthor ? (
+                  '마감하기'
+                ) : (
+                  <img
+                    src={isParticipant ? check : checkGray}
+                    className={styles.statusImage}
+                    alt='Status'
+                  />
+                )}
               </div>
             </div>
           </div>

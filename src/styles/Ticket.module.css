@@ -1,27 +1,5 @@
-.main {
-  background-color: #fff;
-  /* border: 2px solid #ccc; */
-  border-radius: 15px;
-  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
-  padding: 20px 0 20px 20px;
-  width: 300px;
-  height: fit-content;
-  box-sizing: border-box;
-  position: relative;
-  margin-bottom: 10px;
-}
-
-.main:hover {
-  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.2);
-}
-
-.container {
-  /* margin-top: 10px; */
-  height: fit-content;
-  /* background-color: pink; */
-}
-
 .flag {
+  background-color: #3578ff; /* 기본 색상 */
   color: white;
   width: fit-content;
   padding: 5px;
@@ -45,6 +23,26 @@
   /* opacity: 0.6;/ */
 }
 
+.main {
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px 0 20px 20px;
+  width: 300px;
+  height: fit-content;
+  box-sizing: border-box;
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.main:hover {
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.2);
+}
+
+.container {
+  height: fit-content;
+}
+
 .top {
   display: flex;
   height: fit-content;
@@ -53,7 +51,6 @@
 
 .left {
   width: 80%;
-  /* background-color: antiquewhite; */
   border-right: 1px dashed rgba(0, 0, 0, 0.1);
   padding-right: 10px;
 }
@@ -102,7 +99,6 @@
 
 .right {
   width: 30%;
-  /* text-align: right; */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -115,11 +111,12 @@
   font-size: 18px;
   font-weight: 500;
   color: #333;
-  /* color: #ff6f61; */
 }
 
 .status {
   margin-top: 10px;
+  color: #e02424;
+  opacity: 0.9;
 }
 
 .statusImage {

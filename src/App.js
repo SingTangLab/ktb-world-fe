@@ -13,6 +13,7 @@ import { LaundryWritePage } from './pages/LaundryWrite'
 import { TaxiWritePage } from './pages/TaxiWrite'
 import { GongguWritePage } from './pages/GongguWrite'
 import FloatingIcon from './components/FloatingIcon'
+import { LoginPage } from './pages/Login'
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
       <Header />
       <Routes>
         <Route path='/' element={<HomePage />} />
+        <Route path='/login' element={<LoginPage />} />
         <Route path='/laundry' element={<LaundryPage />} />
         <Route path='/taxi' element={<TaxiPage />} />
         <Route path='/gonggu' element={<GongguPage />} />

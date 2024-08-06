@@ -11,7 +11,8 @@ export default function FloatingIcon() {
     pathname === '/' ||
     pathname.includes('write') ||
     pathname.includes('trip') ||
-    pathname.includes('user')
+    pathname.includes('user') ||
+    pathname.includes('login')
   ) {
     return null
   }

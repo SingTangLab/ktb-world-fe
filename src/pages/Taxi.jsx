@@ -3,7 +3,7 @@ import { SelectBar } from '../components/SelectBar'
 import { ContentContainer } from './Laundry'
 import Ticket from '../components/Ticket'
 
-export function Taxi() {
+export function TaxiPage() {
   return (
     <ContentContainer>
       <SelectBar />
@@ -19,6 +19,7 @@ const TaxiContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
+  /* background-color: pink; */
 `
 
 const TaxiTitle = styled.h2`

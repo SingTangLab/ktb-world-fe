@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import { SelectBar } from '../components/SelectBar'
 import Ticket from '../components/Ticket'
 
-export function Laundry() {
+export function LaundryPage() {
   const tickets = Array.from({ length: 10 }) // Creates an array with 10 undefined elements
 
   return (
@@ -22,6 +22,7 @@ export const ContentContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 100%;
 `
 
 const LaundryContainer = styled.div`

@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import { ContentContainer } from './Laundry'
 import TripEntry from '../components/TripEntry'
 
-export function Trip() {
+export function TripPage() {
   return (
     <ContentContainer>
       <TripContainer>

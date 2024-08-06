@@ -22,10 +22,13 @@ export function Header() {
 const Container = styled.div`
   width: 100%;
   max-width: 360px;
-  left: 50%;
-  transform: translateX(-50%);
   position: fixed;
+  // 수평 중앙
   top: 0;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+
   z-index: 10;
   background-color: #fff;
 `

@@ -61,6 +61,7 @@ const DraggableModal = ({
       okText={okText}
       cancelText={cancelText}
       okButtonProps={okButtonProps}
+      centered
       modalRender={(modal) => (
         <Draggable
           disabled={disabled}

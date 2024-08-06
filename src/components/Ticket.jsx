@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styles from '../styles/Ticket.module.css'
 import { useLocation } from 'react-router-dom'
 import { laundryData, taxiData, gongguData, allData } from '../data/data' // 목업 데이터 임포트
 import check from '../images/check.png'
 import checkGray from '../images/notcheck.png'
+import DraggableModal from './DraggableModal'
 
 export default function Ticket() {
   const location = useLocation()
@@ -58,8 +59,39 @@ export default function Ticket() {
 }
 
 function Laundry({ ticket, loggedInUserId }) {
+  const [isModalVisible, setIsModalVisible] = useState(false)
+  const [modalContent, setModalContent] = useState('')
+  const [modalTitle, setModalTitle] = useState('')
+  const [okButtonProps, setOkButtonProps] = useState({})
+  const [okText, setOkText] = useState('확인')
+  const [cancelText, setCancelText] = useState('닫기')
+
   const isAuthor = ticket.user_id === loggedInUserId
   const isParticipant = ticket.participant_user.includes(loggedInUserId)
+
+  const showModal = (
+    content,
+    title,
+    okProps,
+    okTxt = '확인',
+    cancelTxt = '닫기'
+  ) => {
+    setModalContent(content)
+    setModalTitle(title)
+    setOkButtonProps(okProps)
+    setOkText(okTxt)
+    setCancelText(cancelTxt)
+    setIsModalVisible(true)
+  }
+
+  const handleOk = () => {
+    console.log('확인 클릭됨')
+    setIsModalVisible(false)
+  }
+
+  const handleCancel = () => {
+    setIsModalVisible(false)
+  }
 
   return (
     <div className={styles.container}>
@@ -106,25 +138,85 @@ function Laundry({ ticket, loggedInUserId }) {
                   />
                 )
               ) : isAuthor ? (
-                '마감하기'
+                <span
+                  onClick={() =>
+                    showModal(
+                      '인원 모집이 완료되지 않았습니다. 정말 마감하시겠습니까?',
+                      '마감 확인',
+                      { style: { backgroundColor: 'red', borderColor: 'red' } },
+                      '마감',
+                      '닫기'
+                    )
+                  }
+                >
+                  마감하기
+                </span>
               ) : (
                 <img
                   src={isParticipant ? check : checkGray}
                   className={styles.statusImage}
                   alt='Status'
+                  onClick={() =>
+                    !isParticipant &&
+                    showModal(
+                      '확인 버튼을 누르면 참여가 확정됩니다.',
+                      '참여 확인'
+                    )
+                  }
                 />
               )}
             </div>
           </div>
         </div>
       </div>
+      <DraggableModal
+        visible={isModalVisible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        title={modalTitle}
+        content={modalContent}
+        okButtonProps={okButtonProps}
+        okText={okText}
+        cancelText={cancelText}
+      />
     </div>
   )
 }
 
 function Taxi({ ticket, loggedInUserId }) {
+  const [isModalVisible, setIsModalVisible] = useState(false)
+  const [modalContent, setModalContent] = useState('')
+  const [modalTitle, setModalTitle] = useState('')
+  const [okButtonProps, setOkButtonProps] = useState({})
+  const [okText, setOkText] = useState('확인')
+  const [cancelText, setCancelText] = useState('닫기')
+
   const isAuthor = ticket.user_id === loggedInUserId
   const isParticipant = ticket.participant_user.includes(loggedInUserId)
+
+  const showModal = (
+    content,
+    title,
+    okProps,
+    okTxt = '확인',
+    cancelTxt = '닫기'
+  ) => {
+    setModalContent(content)
+    setModalTitle(title)
+    setOkButtonProps(okProps)
+    setOkText(okTxt)
+    setCancelText(cancelTxt)
+    setIsModalVisible(true)
+  }
+
+  const handleOk = () => {
+    console.log('확인 클릭됨')
+    setIsModalVisible(false)
+  }
+
+  const handleCancel = () => {
+    setIsModalVisible(false)
+  }
 
   return (
     <div className={styles.container}>
@@ -164,12 +256,33 @@ function Taxi({ ticket, loggedInUserId }) {
                     />
                   )
                 ) : isAuthor ? (
-                  '마감하기'
+                  <span
+                    onClick={() =>
+                      showModal(
+                        '인원 모집이 완료되지 않았습니다. 정말 마감하시겠습니까?',
+                        '마감 확인',
+                        {
+                          style: { backgroundColor: 'red', borderColor: 'red' },
+                        },
+                        '마감',
+                        '닫기'
+                      )
+                    }
+                  >
+                    마감하기
+                  </span>
                 ) : (
                   <img
                     src={isParticipant ? check : checkGray}
                     className={styles.statusImage}
                     alt='Status'
+                    onClick={() =>
+                      !isParticipant &&
+                      showModal(
+                        '확인 버튼을 누르면 참여가 확정됩니다.',
+                        '참여 확인'
+                      )
+                    }
                   />
                 )}
               </div>
@@ -182,13 +295,54 @@ function Taxi({ ticket, loggedInUserId }) {
           </div>
         </div>
       </div>
+      <DraggableModal
+        visible={isModalVisible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        title={modalTitle}
+        content={modalContent}
+        okButtonProps={okButtonProps}
+        okText={okText}
+        cancelText={cancelText}
+      />
     </div>
   )
 }
 
 function Gonggu({ ticket, loggedInUserId }) {
+  const [isModalVisible, setIsModalVisible] = useState(false)
+  const [modalContent, setModalContent] = useState('')
+  const [modalTitle, setModalTitle] = useState('')
+  const [okButtonProps, setOkButtonProps] = useState({})
+  const [okText, setOkText] = useState('확인')
+  const [cancelText, setCancelText] = useState('닫기')
+
   const isAuthor = ticket.user_id === loggedInUserId
   const isParticipant = ticket.participant_user.includes(loggedInUserId)
+
+  const showModal = (
+    content,
+    title,
+    okProps,
+    okTxt = '확인',
+    cancelTxt = '닫기'
+  ) => {
+    setModalContent(content)
+    setModalTitle(title)
+    setOkButtonProps(okProps)
+    setOkText(okTxt)
+    setCancelText(cancelTxt)
+    setIsModalVisible(true)
+  }
+
+  const handleOk = () => {
+    console.log('확인 클릭됨')
+    setIsModalVisible(false)
+  }
+
+  const handleCancel = () => {
+    setIsModalVisible(false)
+  }
 
   return (
     <div className={styles.container}>
@@ -228,12 +382,33 @@ function Gonggu({ ticket, loggedInUserId }) {
                     />
                   )
                 ) : isAuthor ? (
-                  '마감하기'
+                  <span
+                    onClick={() =>
+                      showModal(
+                        '인원 모집이 완료되지 않았습니다. 정말 마감하시겠습니까?',
+                        '마감 확인',
+                        {
+                          style: { backgroundColor: 'red', borderColor: 'red' },
+                        },
+                        '마감',
+                        '닫기'
+                      )
+                    }
+                  >
+                    마감하기
+                  </span>
                 ) : (
                   <img
                     src={isParticipant ? check : checkGray}
                     className={styles.statusImage}
                     alt='Status'
+                    onClick={() =>
+                      !isParticipant &&
+                      showModal(
+                        '확인 버튼을 누르면 참여가 확정됩니다.',
+                        '참여 확인'
+                      )
+                    }
                   />
                 )}
               </div>
@@ -241,6 +416,16 @@ function Gonggu({ ticket, loggedInUserId }) {
           </div>
         </div>
       </div>
+      <DraggableModal
+        visible={isModalVisible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        title={modalTitle}
+        content={modalContent}
+        okButtonProps={okButtonProps}
+        okText={okText}
+        cancelText={cancelText}
+      />
     </div>
   )
 }

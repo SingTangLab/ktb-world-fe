@@ -79,8 +79,8 @@ export function LaundryWritePage() {
           account: values.account,
           laundry_color: values.laundry_color,
           is_dry: values.is_dry,
-          start_time: `${currentDate} ${start_time}:00`,
-          end_time: `${currentDate} ${end_time}:00`,
+          start_time: `${currentDate}T${start_time}:00`,
+          end_time: `${currentDate}T${end_time}:00`,
         }
         console.log(updatedFormData)
       })

@@ -13,7 +13,10 @@ export function Category() {
   }
   return (
     <CategoryContainer>
-      <CategoryItem to='/home' $isActive={location.pathname === '/'}>
+      <CategoryItem
+        to='/home'
+        $isActive={location.pathname === '/' || location.pathname === '/home'}
+      >
         전체
       </CategoryItem>
       <CategoryItem to='/laundry' $isActive={location.pathname === '/laundry'}>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from '../styles/Ticket.module.css'
 import { useSearchParams, useLocation, Link } from 'react-router-dom'
 import {
@@ -84,10 +84,19 @@ function Laundry({ isUser, ticket, loggedInUserId }) {
   const [isChecked, setIsChecked] = useState(
     ticket.participant_user.includes(loggedInUserId)
   )
-  const [isClosed, setIsClosed] = useState(ticket.status === '마감')
+  const [participant, setParticipant] = useState(ticket.participant_user.length)
+  const [isClosed, setIsClosed] = useState(
+    ticket.status === '마감' || participant === ticket.capacity
+  )
 
   const isAuthor = ticket.user_id === loggedInUserId
   const isParticipant = ticket.participant_user.includes(loggedInUserId)
+
+  useEffect(() => {
+    if (participant === ticket.capacity || ticket.status === '마감') {
+      setIsClosed(true)
+    }
+  }, [participant])
 
   const showModal = (
     content,
@@ -108,6 +117,7 @@ function Laundry({ isUser, ticket, loggedInUserId }) {
     console.log('확인 클릭됨')
     setIsChecked(true)
     setIsModalVisible(false)
+    setParticipant(participant + 1)
   }
 
   const handleCancel = () => {
@@ -157,7 +167,7 @@ function Laundry({ isUser, ticket, loggedInUserId }) {
           </div>
           <div className={styles.right}>
             <div className={styles.people}>
-              {ticket.participant_user.length} / {ticket.capacity}
+              {participant} / {ticket.capacity}
             </div>
             <div className={styles.status}>
               {isClosed ? (
@@ -231,11 +241,18 @@ function Taxi({ isUser, ticket, loggedInUserId }) {
   const [isChecked, setIsChecked] = useState(
     ticket.participant_user.includes(loggedInUserId)
   )
-  const [isClosed, setIsClosed] = useState(ticket.status === '마감')
+  const [participant, setParticipant] = useState(ticket.participant_user.length)
+  const [isClosed, setIsClosed] = useState(
+    ticket.status === '마감' || participant === ticket.capacity
+  )
 
   const isAuthor = ticket.user_id === loggedInUserId
   const isParticipant = ticket.participant_user.includes(loggedInUserId)
-
+  useEffect(() => {
+    if (participant === ticket.capacity || ticket.status === '마감') {
+      setIsClosed(true)
+    }
+  }, [participant])
   const showModal = (
     content,
     title,
@@ -254,6 +271,7 @@ function Taxi({ isUser, ticket, loggedInUserId }) {
   const handleOk = () => {
     console.log('확인 클릭됨')
     setIsChecked(true)
+    setParticipant(participant + 1)
     setIsModalVisible(false)
   }
 
@@ -297,7 +315,7 @@ function Taxi({ isUser, ticket, loggedInUserId }) {
             </div>
             <div className={styles.right}>
               <div className={styles.people}>
-                {ticket.participant_user.length} / {ticket.capacity}
+                {participant} / {ticket.capacity}
               </div>
               <div className={styles.status}>
                 {isClosed ? (
@@ -377,11 +395,18 @@ function Gonggu({ isUser, ticket, loggedInUserId }) {
   const [isChecked, setIsChecked] = useState(
     ticket.participant_user.includes(loggedInUserId)
   )
-  const [isClosed, setIsClosed] = useState(ticket.status === '마감')
+  const [participant, setParticipant] = useState(ticket.participant_user.length)
+  const [isClosed, setIsClosed] = useState(
+    ticket.status === '마감' || participant === ticket.capacity
+  )
 
   const isAuthor = ticket.user_id === loggedInUserId
   const isParticipant = ticket.participant_user.includes(loggedInUserId)
-
+  useEffect(() => {
+    if (participant === ticket.capacity || ticket.status === '마감') {
+      setIsClosed(true)
+    }
+  }, [participant])
   const showModal = (
     content,
     title,
@@ -400,6 +425,7 @@ function Gonggu({ isUser, ticket, loggedInUserId }) {
   const handleOk = () => {
     console.log('확인 클릭됨')
     setIsChecked(true)
+    setParticipant(participant + 1)
     setIsModalVisible(false)
   }
 
@@ -443,7 +469,7 @@ function Gonggu({ isUser, ticket, loggedInUserId }) {
             </div>
             <div className={styles.right}>
               <div className={styles.people}>
-                {ticket.participant_user.length} / {ticket.capacity}
+                {participant} / {ticket.capacity}
               </div>
               <div className={styles.status}>
                 {isClosed ? (

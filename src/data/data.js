@@ -144,7 +144,7 @@ export const laundryData = {
       description: '침대 시트 전용 세탁입니다.',
       nickname: 'kim.seung',
       user_id: 9,
-      capacity: 1,
+      capacity: 2,
       participant_user: [15],
       status: '모집중',
       created_at: '2024-08-05T16:00:00',

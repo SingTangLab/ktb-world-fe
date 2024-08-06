@@ -19,8 +19,8 @@ function App() {
     <Router>
       <Header />
       <Routes>
-        <Route path='/' element={<HomePage />} />
-        <Route path='/login' element={<LoginPage />} />
+        <Route path='/' element={<LoginPage />} />
+        <Route path='/home' element={<HomePage />} />
         <Route path='/laundry' element={<LaundryPage />} />
         <Route path='/taxi' element={<TaxiPage />} />
         <Route path='/gonggu' element={<GongguPage />} />

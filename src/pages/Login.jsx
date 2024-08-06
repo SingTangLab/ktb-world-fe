@@ -1,3 +1,4 @@
+import { Button } from 'antd'
 import styles from '../styles/Login.module.css'
 import { useState } from 'react'
 
@@ -38,9 +39,13 @@ export function LoginPage() {
             onChange={(e) => handleChangePassword(e.target.value)}
           />
         </div>
-        <button onClick={handleClickSignup} className={styles.button}>
+        <Button
+          type='primary'
+          onClick={handleClickSignup}
+          className={styles.button}
+        >
           로그인
-        </button>
+        </Button>
       </div>
     </div>
   )

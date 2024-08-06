@@ -95,13 +95,17 @@ function Laundry({ ticket, loggedInUserId }) {
 
   return (
     <div className={styles.container}>
-      <div className={`${styles.flag} ${styles.laundryFlag}`}>
-        {ticket.category}
-      </div>
       <div className={styles.main}>
         <div className={styles.top}>
           <div className={styles.left}>
-            <div className={styles.title}>{ticket.title}</div>
+            <div className={styles.topFirst}>
+              <div className={`${styles.flag} ${styles.laundryFlag}`}>
+                {ticket.category}
+              </div>
+              <div className={styles.titleItem}>
+                <div className={styles.title}>{ticket.title}</div>
+              </div>
+            </div>
             <div className={styles.description}>{ticket.description}</div>
             <div className={styles.info}>
               <div className={styles.color}>색상 : {ticket.laundry_color}</div>
@@ -220,14 +224,18 @@ function Taxi({ ticket, loggedInUserId }) {
 
   return (
     <div className={styles.container}>
-      <div className={`${styles.flag} ${styles.taxiFlag}`}>
-        {ticket.category}
-      </div>
       <div className={styles.main}>
         <div key={ticket.ticket_id} className={styles.ticket}>
           <div className={styles.top}>
             <div className={styles.left}>
-              <div className={styles.title}>{ticket.title}</div>
+              <div className={styles.topFirst}>
+                <div className={`${styles.flag} ${styles.taxiFlag}`}>
+                  {ticket.category}
+                </div>
+                <div className={styles.titleItem}>
+                  <div className={styles.title}>{ticket.title}</div>
+                </div>
+              </div>
               <div className={styles.description}>{ticket.description}</div>
               <div className={styles.info}>
                 <div className={styles.write}>
@@ -346,14 +354,18 @@ function Gonggu({ ticket, loggedInUserId }) {
 
   return (
     <div className={styles.container}>
-      <div className={`${styles.flag} ${styles.gongguFlag}`}>
-        {ticket.category}
-      </div>
       <div className={styles.main}>
         <div key={ticket.ticket_id} className={styles.ticket}>
           <div className={styles.top}>
             <div className={styles.left}>
-              <div className={styles.title}>{ticket.title}</div>
+              <div className={styles.topFirst}>
+                <div className={`${styles.flag} ${styles.gongguFlag}`}>
+                  {ticket.category}
+                </div>
+                <div className={styles.titleItem}>
+                  <div className={styles.title}>{ticket.title}</div>
+                </div>
+              </div>
               <div className={styles.description}>{ticket.description}</div>
               <div className={styles.info}>
                 <div className={styles.write}>

@@ -5,15 +5,15 @@ import styled, { css } from 'styled-components'
 export function Category() {
   const location = useLocation()
   const isUserPage = /^\/user\/[^/]+$/.test(location.pathname)
-  const isWritePage = /write/.test(location.pathname) // write 포함 경로 확인
+  const isWritePage = /write/.test(location.pathname)
+  const isLoginPage = location.pathname === '/'
 
-  if (isUserPage || isWritePage) {
+  if (isUserPage || isWritePage || isLoginPage) {
     return null
   }
-
   return (
     <CategoryContainer>
-      <CategoryItem to='/' $isActive={location.pathname === '/'}>
+      <CategoryItem to='/home' $isActive={location.pathname === '/'}>
         전체
       </CategoryItem>
       <CategoryItem to='/laundry' $isActive={location.pathname === '/laundry'}>

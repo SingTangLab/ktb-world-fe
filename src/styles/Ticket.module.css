@@ -1,6 +1,5 @@
 .main {
   background-color: #fff;
-  /* border: 2px solid #ccc; */
   border-radius: 15px;
   box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
   padding: 20px 0 20px 20px;
@@ -8,7 +7,7 @@
   height: fit-content;
   box-sizing: border-box;
   position: relative;
-  margin-bottom: 10px;
+  margin: 10px 0;
 }
 
 .main:hover {
@@ -22,11 +21,13 @@
 
 .flag {
   color: white;
-  width: fit-content;
   padding: 5px;
   border-radius: 5px;
-  font-weight: 500;
+  font-weight: 700;
   font-size: 12px;
+  /* width: auto; */
+  width: 40pxx;
+  white-space: nowrap;
 }
 
 .laundryFlag {
@@ -45,6 +46,20 @@
   display: flex;
   height: fit-content;
   justify-content: space-between;
+}
+.titleItem {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+  gap: 5px;
+}
+
+.topFirst {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  flex-direction: row;
 }
 
 .left {
@@ -71,10 +86,9 @@
 }
 
 .title {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: bold;
   color: #333;
-  margin-bottom: 7px;
   line-height: 22px;
 }
 

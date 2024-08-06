@@ -9,9 +9,7 @@ export function UserPage() {
     <ContentContainer>
       <SelectBar />
       <UserContainer>
-        {tickets.map((_, index) => (
-          <Ticket key={index} />
-        ))}
+        <Ticket />
       </UserContainer>
     </ContentContainer>
   )

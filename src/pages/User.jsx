@@ -1,19 +1,27 @@
 import styled from 'styled-components'
 import { ContentContainer } from './Laundry'
-import ticketTop from '../images/ticketTop.png'
-import TicketIcon from '../images/TicketIcon'
-import { useNavigate } from 'react-router-dom'
+import { SelectBar } from '../components/SelectBar'
+import Ticket from '../components/Ticket'
 
 export function UserPage() {
+  const tickets = Array.from({ length: 10 })
   return (
     <ContentContainer>
-      <UserContainer>dd</UserContainer>
+      <SelectBar />
+      <UserContainer>
+        {tickets.map((_, index) => (
+          <Ticket key={index} />
+        ))}
+      </UserContainer>
     </ContentContainer>
   )
 }
 
 const UserContainer = styled.div`
   padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 `
 
 const WhiteBox = styled.div`

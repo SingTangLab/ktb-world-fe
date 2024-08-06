@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { PlusOutlined } from '@ant-design/icons'
+import { PlusOutlined, DownOutlined } from '@ant-design/icons'
 import {
   Button,
   Form,
@@ -18,12 +18,12 @@ const { TextArea } = Input
 
 export function LaundryWritePage() {
   const [form] = Form.useForm()
-  const [limitType, setLimitType] = useState('apple') // 기본 값 설정
+  const [limitType, setLimitType] = useState('limited') // 기본 값 설정 ('limited' 또는 'unlimited')
   const [formData, setFormData] = useState({
     title: '',
     description: '',
     is_limited: true,
-    capacity: 0,
+    capacity: 3, // 기본 최대 인원 수를 3으로 설정
     participant_users: [3, 6],
     creator: 3,
     account: '',
@@ -34,9 +34,35 @@ export function LaundryWritePage() {
     end_time: '',
   })
 
+  const [value, setValue] = useState([])
+  const [maxCount, setMaxCount] = useState(formData.capacity)
+
+  const suffix = (
+    <>
+      <span>
+        {value.length} / {limitType === 'limited' ? maxCount : '제한 없음'}
+      </span>
+      <DownOutlined />
+    </>
+  )
+
   const handleLimitChange = (e) => {
-    setLimitType(e.target.value)
-    setFormData({ ...formData, is_limited: e.target.value === 'apple' })
+    const selectedValue = e.target.value
+    setLimitType(selectedValue)
+    setFormData({ ...formData, is_limited: selectedValue === 'limited' })
+
+    // 제한 있음/없음 변경 시 선택된 항목 초기화
+    setValue([])
+  }
+
+  const handleMaxCountChange = (value) => {
+    setMaxCount(value)
+    setFormData({ ...formData, capacity: value })
+  }
+
+  const handleSelectChange = (selectedValues) => {
+    setValue(selectedValues)
+    setFormData({ ...formData, participant_users: selectedValues })
   }
 
   const handleSubmit = () => {
@@ -129,41 +155,86 @@ export function LaundryWritePage() {
           </Form.Item>
         </Label>
         <Label>
-          <Text>인원모집</Text>
-          <Radio.Group onChange={handleLimitChange} value={limitType}>
-            <MemberRow>
-              <Col>
-                <Radio value='apple'> 제한 있음 </Radio>
-              </Col>
-              <Col>
-                <Form.Item name='capacity'>
-                  <Row
-                    gutter={8}
-                    style={{ marginTop: '0px', boxSizing: 'border-box' }}
-                  >
-                    <Col style={{ marginTop: '6px', boxSizing: 'border-box' }}>
+          <Text>인원 모집</Text>
+          <Form.Item>
+            <Radio.Group onChange={handleLimitChange} value={limitType}>
+              <Row>
+                <Col span={24}>
+                  <Radio value='limited'> 제한 있음 </Radio>
+                </Col>
+                {limitType === 'limited' && (
+                  <Col span={24} style={{ marginTop: 8 }}>
+                    <Form.Item>
                       <InputNumber
-                        style={{ width: '60px' }}
-                        disabled={limitType === 'pear'}
+                        value={maxCount}
+                        onChange={handleMaxCountChange}
+                        min={1}
+                        max={10} // 최대 인원 수 설정
+                        placeholder='총 가능 인원수를 입력하세요'
+                        style={{ width: '100%' }}
                       />
-                    </Col>
-                    <Col style={{ marginTop: '10px', boxSizing: 'border-box' }}>
-                      {' '}
-                      /{' '}
-                    </Col>
-                    <Col style={{ marginTop: '6px', boxSizing: 'border-box' }}>
-                      <InputNumber
-                        style={{ width: '60px' }}
-                        disabled={limitType === 'pear'}
-                      />{' '}
-                      명
-                    </Col>
-                  </Row>
-                </Form.Item>
-              </Col>
-            </MemberRow>
-            <Radio value='pear'> 제한 없음 </Radio>
-          </Radio.Group>
+                    </Form.Item>
+                  </Col>
+                )}
+                <Col span={24}>
+                  <Radio value='unlimited'> 제한 없음 </Radio>
+                </Col>
+              </Row>
+            </Radio.Group>
+          </Form.Item>
+        </Label>
+        <Label>
+          <Form.Item label='참여인원'>
+            <Select
+              mode='multiple'
+              maxCount={limitType === 'limited' ? maxCount : undefined}
+              value={value}
+              style={{
+                width: '100%',
+              }}
+              onChange={handleSelectChange}
+              suffixIcon={suffix}
+              placeholder='Please select'
+              options={[
+                {
+                  value: 1,
+                  label: 'Ava Swift',
+                },
+                {
+                  value: 2,
+                  label: 'Cole Reed',
+                },
+                {
+                  value: 3,
+                  label: 'Mia Blake',
+                },
+                {
+                  value: 4,
+                  label: 'Jake Stone',
+                },
+                {
+                  value: 5,
+                  label: 'Lily Lane',
+                },
+                {
+                  value: 6,
+                  label: 'Ryan Chase',
+                },
+                {
+                  value: 7,
+                  label: 'Zoe Fox',
+                },
+                {
+                  value: 8,
+                  label: 'Alex Grey',
+                },
+                {
+                  value: 9,
+                  label: 'Elle Blair',
+                },
+              ]}
+            />
+          </Form.Item>
         </Label>
         <Label>
           <Form.Item

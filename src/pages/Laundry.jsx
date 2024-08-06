@@ -24,6 +24,7 @@ export const ContentContainer = styled.div`
   align-items: center;
   width: 100%;
   height: fit-content;
+  margin-top: 125px;
 `
 
 const LaundryContainer = styled.div`
@@ -31,9 +32,4 @@ const LaundryContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
-`
-
-const LaundryTitle = styled.h2`
-  font-size: 24px;
-  font-weight: 600;
 `

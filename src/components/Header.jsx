@@ -20,8 +20,14 @@ export function Header() {
 }
 
 const Container = styled.div`
-  /* width: 360px; */
-  margin: 0 auto;
+  width: 100%;
+  max-width: 360px;
+  left: 50%;
+  transform: translateX(-50%);
+  position: fixed;
+  top: 0;
+  z-index: 10;
+  background-color: #fff;
 `
 
 const HeaderContainer = styled.header`

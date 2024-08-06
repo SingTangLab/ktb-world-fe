@@ -17,7 +17,9 @@ export function GongguPage() {
 }
 
 const GongguContainer = styled.div`
-  padding: 0px 16px 16px;
+  width: 100%;
+  padding: 0px 16px;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;

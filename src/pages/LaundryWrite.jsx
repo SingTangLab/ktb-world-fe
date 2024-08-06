@@ -270,6 +270,7 @@ export function LaundryWritePage() {
 }
 
 const LaundryWriteContainer = styled.div`
+  margin-top: 70px;
   padding: 16px;
 `
 

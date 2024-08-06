@@ -22,8 +22,6 @@ export function Header() {
 const Container = styled.div`
   width: 100%;
   max-width: 360px;
-  left: 50%;
-  transform: translateX(-50%);
   position: fixed;
   top: 0;
   z-index: 10;

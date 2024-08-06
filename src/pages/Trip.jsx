@@ -4,12 +4,12 @@ import TripEntry from '../components/TripEntry'
 
 export function TripPage() {
   return (
-    <ContentContainer>
+    <div>
       <TripContainer>
         <TripTitle>Trip</TripTitle>
         <TripEntry />
       </TripContainer>
-    </ContentContainer>
+    </div>
   )
 }
 

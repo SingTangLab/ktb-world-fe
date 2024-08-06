@@ -2,9 +2,21 @@
 
 #root {
   font-family: 'Pretendard', sans-serif;
-  height: 100vh;
+  height: fit-content;
 }
 
 html {
   font-family: 'Pretendard', sans-serif;
+  overflow: scroll; /* 전체 스크롤을 숨기기 위해 사용 */
+}
+
+/* 특정 영역에서 스크롤바를 숨기고 싶은 경우 */
+#root::-webkit-scrollbar,
+html::-webkit-scrollbar {
+  display: none; /* 웹킷 브라우저에서 스크롤바 숨김 */
+}
+
+#root {
+  -ms-overflow-style: none; /* IE와 Edge에서 스크롤바 숨김 */
+  scrollbar-width: none; /* Firefox에서 스크롤바 숨김 */
 }

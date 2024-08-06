@@ -97,6 +97,7 @@ export function LaundryWritePage() {
         layout='vertical'
         style={{ maxWidth: 300, margin: '20px auto' }}
         initialValues={{ is_dry: true }}
+        onFinish={handleSubmit}
       >
         <Label>
           <Form.Item
@@ -260,7 +261,7 @@ export function LaundryWritePage() {
           </Form.Item>
         </Label>
         <Form.Item>
-          <Button type='primary' onClick={handleSubmit}>
+          <Button type='primary' htmlType='submit'>
             제출
           </Button>
         </Form.Item>
@@ -274,6 +275,7 @@ const LaundryWriteContainer = styled.div`
 `
 
 const LaundryWriteTitle = styled.h2`
+  margin-top: 55px;
   font-size: 24px;
   font-weight: 600;
   text-align: center;

@@ -2,9 +2,10 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { DownOutlined } from '@ant-design/icons'
-import { Button, Form, Input, InputNumber, Radio, Select } from 'antd'
+import { Button, Form, Input, InputNumber, Radio, Select, message } from 'antd'
 
 const { TextArea } = Input
+const SERVER_URL = 'http://localhost:8080/api'
 
 export function GongguWritePage() {
   const navigate = useNavigate()
@@ -18,7 +19,7 @@ export function GongguWritePage() {
     is_limited: true,
     capacity: 3,
     participant_users: [],
-    creator: 3,
+    creator: 4,
     account: '',
     category: '공구',
   })
@@ -64,7 +65,27 @@ export function GongguWritePage() {
           participant_users: values.participant_users || [],
         }
         console.log(updatedFormData)
-        navigate('/gonggu') // 제출 후 /gonggu로 리다이렉트
+
+        fetch(`${SERVER_URL}/tickets`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(updatedFormData),
+        })
+          .then((response) => {
+            if (response.status === 201) {
+              return response.json()
+            }
+            throw new Error('Failed to create gonggu')
+          })
+          .then((data) => {
+            message.success('공구 생성 성공!')
+            navigate('/gonggu') // 제출 후 /gonggu로 리다이렉트
+          })
+          .catch((error) => {
+            message.error('공구 생성 실패: ' + error.message)
+          })
       })
       .catch((errorInfo) => {
         console.log('Validation Failed:', errorInfo)

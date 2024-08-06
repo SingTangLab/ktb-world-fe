@@ -8,6 +8,7 @@ import { Gonggu } from './pages/Gonggu'
 import { Trip } from './pages/Trip'
 import { User } from './pages/User'
 import { Ticket } from './pages/Ticket'
+import { TripListPage } from './pages/TripList'
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path='/trip' element={<Trip />} />
         <Route path='/user' element={<User />} />
         <Route path='/user/:id' element={<Ticket />} />
+        <Route path='/trip/:id' element={<TripListPage />} />
       </Routes>
     </Router>
   )

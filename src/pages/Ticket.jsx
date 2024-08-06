@@ -165,12 +165,12 @@ const ContentTitle = styled.div`
 `
 
 const ContentContent = styled.div`
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
   width: 279px;
   color: #747483;
   display: flex;
-  line-height: 16px;
+  line-height: 18px;
 `
 
 const TicketContents = styled.div`

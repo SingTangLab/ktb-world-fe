@@ -1,7 +1,13 @@
 import React, { useState } from 'react'
 import styles from '../styles/Ticket.module.css'
-import { useLocation } from 'react-router-dom'
-import { laundryData, taxiData, gongguData, allData } from '../data/data' // 목업 데이터 임포트
+import { useLocation, Link } from 'react-router-dom'
+import {
+  laundryData,
+  taxiData,
+  gongguData,
+  allData,
+  myData,
+} from '../data/data' // 목업 데이터 임포트
 import check from '../images/check.png'
 import checkGray from '../images/notcheck.png'
 import DraggableModal from './DraggableModal'
@@ -13,15 +19,7 @@ export default function Ticket() {
   const isLaundry = pathname.includes('/laundry')
   const isTaxi = pathname.includes('/taxi')
   const isGonggu = pathname.includes('/gonggu')
-
-  // 전체 페이지에서 세탁기, 택시, 공구 각각의 제목 붙여주는 방식으로 변경
-  const title = isLaundry
-    ? '세탁기'
-    : isTaxi
-    ? '택시'
-    : isGonggu
-    ? '공구'
-    : '전체'
+  const isUser = pathname.includes('/user')
 
   // 세탁 티켓 데이터 가져오기
   const tickets = isLaundry
@@ -30,6 +28,8 @@ export default function Ticket() {
     ? taxiData.tickets
     : isGonggu
     ? gongguData.tickets
+    : isUser
+    ? myData.tickets
     : allData.tickets
 
   // 로그인된 유저의 ID (예시)
@@ -39,18 +39,21 @@ export default function Ticket() {
     ticket.category === '세탁' ? (
       <Laundry
         key={ticket.ticket_id}
+        isUser={isUser}
         ticket={ticket}
         loggedInUserId={loggedInUserId}
       />
     ) : ticket.category === '택시' ? (
       <Taxi
         key={ticket.ticket_id}
+        isUser={isUser}
         ticket={ticket}
         loggedInUserId={loggedInUserId}
       />
     ) : (
       <Gonggu
         key={ticket.ticket_id}
+        isUser={isUser}
         ticket={ticket}
         loggedInUserId={loggedInUserId}
       />
@@ -58,7 +61,7 @@ export default function Ticket() {
   )
 }
 
-function Laundry({ ticket, loggedInUserId }) {
+function Laundry({ isUser, ticket, loggedInUserId }) {
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [modalContent, setModalContent] = useState('')
   const [modalTitle, setModalTitle] = useState('')
@@ -66,7 +69,7 @@ function Laundry({ ticket, loggedInUserId }) {
   const [okText, setOkText] = useState('확인')
   const [cancelText, setCancelText] = useState('닫기')
 
-  const isAuthor = ticket.user_id === loggedInUserId
+  const isAuthor = ticket.user_id === 20
   const isParticipant = ticket.participant_user.includes(loggedInUserId)
 
   const showModal = (
@@ -94,7 +97,13 @@ function Laundry({ ticket, loggedInUserId }) {
   }
 
   return (
-    <div className={styles.container}>
+    <Link
+      className={styles.container}
+      to={isUser && `/user/${ticket.ticket_id}`}
+    >
+      <div className={`${styles.flag} ${styles.laundryFlag}`}>
+        {ticket.category}
+      </div>
       <div className={styles.main}>
         <div className={styles.top}>
           <div className={styles.left}>
@@ -183,11 +192,11 @@ function Laundry({ ticket, loggedInUserId }) {
         okText={okText}
         cancelText={cancelText}
       />
-    </div>
+    </Link>
   )
 }
 
-function Taxi({ ticket, loggedInUserId }) {
+function Taxi({ isUser, ticket, loggedInUserId }) {
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [modalContent, setModalContent] = useState('')
   const [modalTitle, setModalTitle] = useState('')
@@ -223,7 +232,13 @@ function Taxi({ ticket, loggedInUserId }) {
   }
 
   return (
-    <div className={styles.container}>
+    <Link
+      className={styles.container}
+      to={isUser && `/user/${ticket.ticket_id}`}
+    >
+      <div className={`${styles.flag} ${styles.taxiFlag}`}>
+        {ticket.category}
+      </div>
       <div className={styles.main}>
         <div key={ticket.ticket_id} className={styles.ticket}>
           <div className={styles.top}>
@@ -313,11 +328,11 @@ function Taxi({ ticket, loggedInUserId }) {
         okText={okText}
         cancelText={cancelText}
       />
-    </div>
+    </Link>
   )
 }
 
-function Gonggu({ ticket, loggedInUserId }) {
+function Gonggu({ isUser, ticket, loggedInUserId }) {
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [modalContent, setModalContent] = useState('')
   const [modalTitle, setModalTitle] = useState('')
@@ -353,7 +368,13 @@ function Gonggu({ ticket, loggedInUserId }) {
   }
 
   return (
-    <div className={styles.container}>
+    <Link
+      className={styles.container}
+      to={isUser && `/user/${ticket.ticket_id}`}
+    >
+      <div className={`${styles.flag} ${styles.gongguFlag}`}>
+        {ticket.category}
+      </div>
       <div className={styles.main}>
         <div key={ticket.ticket_id} className={styles.ticket}>
           <div className={styles.top}>
@@ -438,6 +459,6 @@ function Gonggu({ ticket, loggedInUserId }) {
         okText={okText}
         cancelText={cancelText}
       />
-    </div>
+    </Link>
   )
 }

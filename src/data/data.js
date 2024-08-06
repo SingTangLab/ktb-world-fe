@@ -662,7 +662,7 @@ export const tripData = {
   ],
 }
 
-const myData = {
+export const myData = {
   tickets: [
     // 세탁 데이터
     {
@@ -672,7 +672,7 @@ const myData = {
       description: '운동복 전용 세탁입니다.',
       nickname: 'user_20',
       user_id: 20,
-      capacity: 2,
+      capacity: 4,
       participant_user: [20, 2, 4],
       status: '모집중',
       created_at: '2024-08-05T10:00:00',

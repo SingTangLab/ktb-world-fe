@@ -1,20 +1,27 @@
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import styled from 'styled-components'
 import { Category } from './Category'
 
 export function Header() {
+  const location = useLocation()
+  const pathname = location.pathname
+
   const nickname = 'seny.park'
+
+  const isShow = !pathname.includes('login')
 
   return (
     <Container>
       <HeaderContainer>
-        <Title to='/'>KTB WORLD</Title>
-        <Profile to='/user'>
-          <Circle>{nickname[0]}</Circle>
-          <NickName>{nickname}</NickName>
-        </Profile>
+        <Title to={isShow ? '/' : 'login'}>KTB WORLD</Title>
+        {isShow && (
+          <Profile to='/user'>
+            <Circle>{nickname[0]}</Circle>
+            <NickName>{nickname}</NickName>
+          </Profile>
+        )}
       </HeaderContainer>
-      <Category />
+      {isShow && <Category />}
     </Container>
   )
 }

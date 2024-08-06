@@ -1,28 +1,33 @@
 .main {
   background-color: #fff;
-  border: 2px solid #ccc;
+  /* border: 2px solid #ccc; */
   border-radius: 15px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 20px;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px 0 20px 20px;
   width: 300px;
   height: fit-content;
   position: relative;
-  font-family: Arial, sans-serif;
+  margin-bottom: 10px;
+}
+
+.main:hover {
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.2);
 }
 
 .container {
   /* margin-top: 10px; */
   height: fit-content;
+  /* background-color: pink; */
 }
 
 .flag {
-  background-color: #ff6f61;
+  background-color: #3578ff;
   color: white;
   width: fit-content;
-  padding: 5px 10px;
+  padding: 5px;
   border-radius: 5px;
-  font-weight: bold;
-  font-size: 15px;
+  font-weight: 500;
+  font-size: 12px;
 }
 
 .top {
@@ -32,13 +37,16 @@
 }
 
 .left {
-  width: 70%;
+  width: 80%;
+  /* background-color: antiquewhite; */
+  border-right: 1px dashed rgba(0, 0, 0, 0.1);
 }
 
 .write {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 10px;
+  padding: 10px 10px 0 0;
+  box-sizing: border-box;
 }
 
 .writer {
@@ -55,13 +63,15 @@
   font-size: 18px;
   font-weight: bold;
   color: #333;
-  margin-bottom: 5px;
+  margin-bottom: 7px;
+  line-height: 22px;
 }
 
 .description {
   font-size: 14px;
   color: #555;
   margin-bottom: 10px;
+  line-height: 18px;
 }
 
 .info {
@@ -71,22 +81,25 @@
 
 .color,
 .dryer {
-  margin-bottom: 5px;
+  margin-bottom: 7px;
 }
 
 .right {
   width: 30%;
-  text-align: right;
+  /* text-align: right; */
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: last baseline;
+  gap: 10px;
+  align-items: center;
+  cursor: pointer;
 }
 
 .people {
   font-size: 18px;
-  font-weight: bold;
-  color: #ff6f61;
+  font-weight: 500;
+  color: #333;
+  /* color: #ff6f61; */
 }
 
 .status {
@@ -110,9 +123,10 @@
 }
 
 .bottomLeft {
-  width: 70%;
+  width: 100%;
   display: flex;
   justify-content: space-between;
+  padding: 0 10px 0 0;
 }
 
 .start,

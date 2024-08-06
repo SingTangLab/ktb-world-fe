@@ -1,8 +1,17 @@
 import React, { useRef, useState } from 'react'
-import { Button, Modal as AntdModal } from 'antd'
+import { Button, Modal } from 'antd'
 import Draggable from 'react-draggable'
 
-const DraggableModal = ({ visible, onOk, onCancel, title, content }) => {
+const DraggableModal = ({
+  visible,
+  onOk,
+  onCancel,
+  title,
+  content,
+  okButtonProps,
+  okText = '확인',
+  cancelText = '닫기',
+}) => {
   const [disabled, setDisabled] = useState(true)
   const [bounds, setBounds] = useState({
     left: 0,
@@ -27,7 +36,7 @@ const DraggableModal = ({ visible, onOk, onCancel, title, content }) => {
   }
 
   return (
-    <AntdModal
+    <Modal
       title={
         <div
           style={{
@@ -49,6 +58,10 @@ const DraggableModal = ({ visible, onOk, onCancel, title, content }) => {
       visible={visible}
       onOk={onOk}
       onCancel={onCancel}
+      okText={okText}
+      cancelText={cancelText}
+      okButtonProps={okButtonProps}
+      centered
       modalRender={(modal) => (
         <Draggable
           disabled={disabled}
@@ -61,7 +74,7 @@ const DraggableModal = ({ visible, onOk, onCancel, title, content }) => {
       )}
     >
       {content}
-    </AntdModal>
+    </Modal>
   )
 }
 

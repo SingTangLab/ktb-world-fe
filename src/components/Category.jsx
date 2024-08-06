@@ -5,8 +5,9 @@ import styled, { css } from 'styled-components'
 export function Category() {
   const location = useLocation()
   const isUserPage = /^\/user\/[^/]+$/.test(location.pathname)
+  const isWritePage = /write/.test(location.pathname) // write 포함 경로 확인
 
-  if (isUserPage) {
+  if (isUserPage || isWritePage) {
     return null
   }
 

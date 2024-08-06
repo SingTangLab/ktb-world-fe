@@ -17,10 +17,9 @@ export function HomePage() {
 }
 
 export const ContentContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  justifu-content: flex-start;
   align-items: center;
+  height: 100%;
 `
 
 const HomeContainer = styled.div`

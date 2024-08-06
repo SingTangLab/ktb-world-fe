@@ -12,6 +12,7 @@ import { TripListPage } from './pages/TripList'
 import { LaundryWritePage } from './pages/LaundryWrite'
 import { TaxiWritePage } from './pages/TaxiWrite'
 import { GongguWritePage } from './pages/GongguWrite'
+import FloatingIcon from './components/FloatingIcon'
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
         <Route path='/taxi/write' element={<TaxiWritePage />} />
         <Route path='/gonggu/write' element={<GongguWritePage />} />
       </Routes>
+      <FloatingIcon />
     </Router>
   )
 }

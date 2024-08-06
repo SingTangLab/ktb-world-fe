@@ -20,7 +20,9 @@ const GongguContainer = styled.div`
   padding: 0px 16px 16px;
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
   gap: 10px;
+  height: 100%;
 `
 
 const GongguTitle = styled.h2`

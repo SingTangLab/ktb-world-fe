@@ -15,7 +15,7 @@ export default function TripCard({ data }) {
           <div className={styles.location}>{data.address}</div>
         </div>
         <div className={styles.tagList}>
-          {tagArray.map((tag, index) => {
+          {tagArray.slice(0, 3).map((tag, index) => {
             return (
               <div key={index} className={styles.tag}>
                 #{tag}

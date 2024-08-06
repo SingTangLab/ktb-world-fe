@@ -11,19 +11,19 @@ export function Category() {
 
   return (
     <CategoryContainer>
-      <CategoryItem to='/' active={location.pathname === '/'}>
+      <CategoryItem to='/' $isActive={location.pathname === '/'}>
         전체
       </CategoryItem>
-      <CategoryItem to='/laundry' active={location.pathname === '/laundry'}>
+      <CategoryItem to='/laundry' $isActive={location.pathname === '/laundry'}>
         세탁
       </CategoryItem>
-      <CategoryItem to='/taxi' active={location.pathname === '/taxi'}>
+      <CategoryItem to='/taxi' $isActive={location.pathname === '/taxi'}>
         택시
       </CategoryItem>
-      <CategoryItem to='/gonggu' active={location.pathname === '/gonggu'}>
+      <CategoryItem to='/gonggu' $isActive={location.pathname === '/gonggu'}>
         공구
       </CategoryItem>
-      <CategoryItem to='/trip' active={location.pathname === '/trip'}>
+      <CategoryItem to='/trip' $isActive={location.pathname === '/trip'}>
         관광
       </CategoryItem>
     </CategoryContainer>
@@ -56,7 +56,7 @@ const CategoryItem = styled(Link)`
   }
 
   ${(props) =>
-    props.active &&
+    props.$isActive &&
     css`
       color: #3578ff;
       background-color: #d9e8ff;

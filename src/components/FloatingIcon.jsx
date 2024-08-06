@@ -10,7 +10,8 @@ export default function FloatingIcon() {
   if (
     pathname === '/' ||
     pathname.includes('write') ||
-    pathname.includes('trip')
+    pathname.includes('trip') ||
+    pathname.includes('user')
   ) {
     return null
   }

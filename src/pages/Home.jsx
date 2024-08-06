@@ -17,9 +17,12 @@ export function HomePage() {
 }
 
 export const ContentContainer = styled.div`
-  justifu-content: flex-start;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
   height: 100%;
+  margin-top: 530px;
 `
 
 const HomeContainer = styled.div`

@@ -289,14 +289,6 @@ const Label = styled.div`
   }
 `
 
-const MemberRow = styled(Row)`
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  justify-content: flex-start;
-  margin-top: -10px; /* 추가: 인원모집과 제한 있음 사이의 간격 줄이기 */
-`
-
 const StyledForm = styled(Form)`
   .ant-form-item {
     margin-bottom: 8px;

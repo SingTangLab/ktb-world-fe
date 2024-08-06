@@ -4,8 +4,9 @@ import styled, { css } from 'styled-components'
 
 export function Category() {
   const location = useLocation()
+  const isUserPage = /^\/user\/[^/]+$/.test(location.pathname)
 
-  if (location.pathname === '/user') {
+  if (isUserPage) {
     return null
   }
 

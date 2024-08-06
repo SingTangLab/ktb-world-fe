@@ -2,66 +2,12 @@ import styled from 'styled-components'
 import { ContentContainer } from './Laundry'
 import ticketTop from '../images/ticketTop.png'
 import TicketIcon from '../images/TicketIcon'
+import { useNavigate } from 'react-router-dom'
 
 export function UserPage() {
-  const titleList = ['제목', '내용', '참여', '계좌', '티켓 발급 날짜']
-  const ticketDetail = {
-    type: '세탁',
-    state: '빨래 중',
-    title: '흰 빨래 1명 급구',
-    content:
-      '흰빨래 1명 급구흰빨래 1명 급구흰빨래 1명 급구흰빨래 1명 급구흰빨래 1명 급구흰빨래 1명 급구흰빨래 1명 급구흰빨래 1명 급구흰빨래 1명 급구흰빨래 1명 급구흰빨래 1명 급구흰빨래 1명 급구',
-    members: [
-      'seny.park',
-      'jane.kim',
-      'john.lee',
-      'james.kim',
-      'jane.kim',
-      'john.lee',
-    ],
-    ticketDate: '07/10',
-    account: '국민은행 1000-203-12334',
-  }
-
-  const ticketContentList = [
-    { title: '제목', content: ticketDetail.title },
-    { title: '내용', content: ticketDetail.content },
-    { title: '참여', content: ticketDetail.members.join(', ') },
-    { title: '계좌', content: ticketDetail.account },
-  ]
-
   return (
     <ContentContainer>
-      <UserContainer>
-        <TicketContainer>
-          <TicketImg src={ticketTop} alt='user' />
-          <TicketBox>
-            <TicketContents>
-              {ticketContentList.map((item, index) => (
-                <TicketContent key={index}>
-                  <ContentTitle>{item.title}</ContentTitle>
-                  <ContentContent>{item.content}</ContentContent>
-                </TicketContent>
-              ))}
-              <TicketDate>
-                <ContentDateTitle>{titleList[4]}</ContentDateTitle>
-                <ContentDateContent>
-                  <TextAlign>{ticketDetail.ticketDate}</TextAlign>
-                </ContentDateContent>
-              </TicketDate>
-            </TicketContents>
-          </TicketBox>
-          <TicketTopContainer>
-            <TicketIconBox>
-              <TicketIcon />
-            </TicketIconBox>
-            <TicketText>
-              <TicketType>{ticketDetail.type}</TicketType>
-              <TicketSub>{ticketDetail.state}</TicketSub>
-            </TicketText>
-          </TicketTopContainer>
-        </TicketContainer>
-      </UserContainer>
+      <UserContainer>dd</UserContainer>
     </ContentContainer>
   )
 }
@@ -70,9 +16,13 @@ const UserContainer = styled.div`
   padding: 16px;
 `
 
-const UserTitle = styled.h2`
-  font-size: 24px;
-  font-weight: 600;
+const WhiteBox = styled.div`
+  position: absolute;
+  top: 105px;
+  background-color: #fff;
+  z-index: 2;
+  width: 298px;
+  height: 20px;
 `
 
 const TicketContainer = styled.div`
@@ -80,7 +30,9 @@ const TicketContainer = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
-  width: 300px;
+  justify-content: center;
+  align-items: center;
+  width: 325px;
   box-sizing: border-box;
   /* box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.3); */
 `
@@ -88,17 +40,17 @@ const TicketContainer = styled.div`
 const TicketImg = styled.img`
   width: 100%;
   height: auto;
-  box-shadow: 0px 4px 10px 0px rgba(83, 83, 83, 0.3);
-  background-color: pink;
 `
 
 const TicketBox = styled.div`
-  /* 여기서 img -> div로 수정 */
-  margin-top: -1px;
+  margin-top: -15px;
   background-color: #fff;
   height: 100%;
+  width: 301px;
   box-sizing: border-box;
   padding: 20px 0;
+  box-shadow: 0px 4px 10px 0px rgba(83, 83, 83, 0.3);
+  /* background-color: pink; */
 `
 
 const TicketTopContainer = styled.div`
@@ -141,7 +93,7 @@ const TicketType = styled.div`
 `
 
 const ContentTitle = styled.div`
-  font-size: 18px;
+  font-size: 15px;
   font-weight: 600;
   width: 55px;
   box-sizing: border-box;
@@ -157,7 +109,7 @@ const ContentContent = styled.div`
 `
 
 const TicketContents = styled.div`
-  padding: 30px 0;
+  padding: 10px 0 30px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -169,11 +121,12 @@ const TicketContent = styled.div`
   justify-content: flex-start;
   align-items: center;
   display: flex;
-  gap: 15px;
-  padding: 20px 10px;
+  gap: 10px;
+  padding: 20px;
   box-sizing: border-box;
   background-color: white;
   border-bottom: 1px dashed #b8b8c1;
+  z-index: 10px;
 `
 
 const TicketTitle = styled.div`
@@ -204,5 +157,31 @@ const ContentDateContent = styled(ContentContent)`
 `
 
 const TextAlign = styled.div``
+
+const BtnArea = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
+
+const Btn = styled.div`
+  width: 90%;
+  height: 50px;
+  padding: 0 10px;
+  box-sizing: border-box;
+  background-color: #d9e8ff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 600;
+  color: #3578ff;
+  cursor: pointer;
+  border-radius: 30px;
+  &:hover {
+    background-color: #3578ff;
+    color: #fff;
+  }
+`
 
 export default UserPage

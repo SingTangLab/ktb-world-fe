@@ -19,7 +19,7 @@ const TaxiContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
-  background-color: pink;
+  /* background-color: pink; */
 `
 
 const TaxiTitle = styled.h2`

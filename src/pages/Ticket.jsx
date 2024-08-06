@@ -37,7 +37,7 @@ export function TicketPage() {
   }
 
   return (
-    <ContentContainer>
+    <DetailContainer>
       <Container>
         <TicketContainer>
           <TicketImg src={ticketTop} alt='user' />
@@ -73,9 +73,13 @@ export function TicketPage() {
           </TicketTopContainer>
         </TicketContainer>
       </Container>
-    </ContentContainer>
+    </DetailContainer>
   )
 }
+
+const DetailContainer = styled(ContentContainer)`
+  margin-top: 55px;
+`
 
 const Container = styled.div`
   padding: 16px;

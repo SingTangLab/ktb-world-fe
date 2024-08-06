@@ -13,7 +13,7 @@ export function Header() {
   return (
     <Container>
       <HeaderContainer>
-        <Title to={isShow ? '/' : 'login'}>KTB WORLD</Title>
+        <Title to={isShow ? 'home' : '/'}>KTB WORLD</Title>
         {isShow && (
           <Profile to='/user'>
             <Circle>{nickname[0]}</Circle>

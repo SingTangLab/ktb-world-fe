@@ -24,7 +24,7 @@ export const ContentContainer = styled.div`
   align-items: center;
   width: 100%;
   height: fit-content;
-  margin-top: 55px;
+  margin-top: 125px;
 `
 
 const LaundryContainer = styled.div`

@@ -163,14 +163,15 @@ export function GongguWritePage() {
 const FormContainer = styled.div`
   padding: 16px;
   width: 100%;
-  max-width: 360px;
+  max-width: 300px;
   margin: 20px auto;
   background-color: #fff;
-  margin-top: 55px;
+  margin-top: 60px;
 `
 
 const FormTitle = styled.h2`
-  font-size: 24px;
+  /* margin-top: 60px; */
+  font-size: 20px;
   font-weight: 600;
   text-align: center;
 `

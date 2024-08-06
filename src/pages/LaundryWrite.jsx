@@ -271,13 +271,12 @@ export function LaundryWritePage() {
 }
 
 const LaundryWriteContainer = styled.div`
-  margin-top: 70px;
   padding: 16px;
 `
 
 const LaundryWriteTitle = styled.h2`
-  margin-top: 55px;
-  font-size: 24px;
+  margin-top: 60px;
+  font-size: 20px;
   font-weight: 600;
   text-align: center;
 `

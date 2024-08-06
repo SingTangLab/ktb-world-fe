@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import styles from '../styles/TripEntry.module.css'
 import { useNavigate } from 'react-router-dom'
 
@@ -6,13 +6,13 @@ export default function TripEntry() {
   const navigate = useNavigate()
   const [backgroundImage, setBackgroundImage] = useState('map.jpg')
 
-  const handleMouseEnter = (region) => {
+  const handleMouseEnter = useCallback((region) => {
     setBackgroundImage(`map-${region}.jpg`)
-  }
+  }, [])
 
-  const handleMouseLeave = () => {
+  const handleMouseLeave = useCallback(() => {
     setBackgroundImage('map.jpg')
-  }
+  }, [])
 
   return (
     <div className={styles.main}>

@@ -52,9 +52,9 @@ function Laundry({ ticket }) {
             <div className={styles.title}>{ticket.title}</div>
             <div className={styles.description}>{ticket.description}</div>
             <div className={styles.info}>
-              <div className={styles.color}>색상: {ticket.laundry_color}</div>
+              <div className={styles.color}>색상 : {ticket.laundry_color}</div>
               <div className={styles.dryer}>
-                건조기: {ticket.is_dry ? 'O' : 'X'}{' '}
+                건조기 : {ticket.is_dry ? 'O' : 'X'}{' '}
               </div>
               <div className={styles.write}>
                 <div className={styles.writer}>모집자 : {ticket.nickname}</div>

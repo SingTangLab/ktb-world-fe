@@ -17,7 +17,9 @@ export function TaxiPage() {
 const TaxiContainer = styled.div`
   padding: 0px 16px 16px;
   display: flex;
+  justifu-content: flex-start;
   flex-direction: column;
+  height: fit-content;
   gap: 10px;
   /* background-color: pink; */
 `

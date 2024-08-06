@@ -538,3 +538,88 @@ const shuffledTickets = shuffleArray(combinedTickets)
 export const allData = {
   tickets: shuffledTickets,
 }
+
+export const tripData = {
+  places: [
+    {
+      place_id: 1,
+      title: '성산 일출봉',
+      address: '제주특별자치도 서귀포시 성산읍 일출로 284-12',
+      thumbnail_url: 'https://api.cdn.visitjeju~~',
+      tag: '일출, 오름, 경관/포토',
+      section: 3,
+    },
+    {
+      place_id: 2,
+      title: '한라산 국립공원',
+      address: '제주특별자치도 제주시 1100로 2070-61',
+      thumbnail_url: 'https://api.cdn.visitjeju~~',
+      tag: '등산, 국립공원, 경관/포토',
+      section: 5,
+    },
+    {
+      place_id: 3,
+      title: '섭지코지',
+      address: '제주특별자치도 서귀포시 성산읍 섭지코지로 107',
+      thumbnail_url: 'https://api.cdn.visitjeju~~',
+      tag: '해안, 드라이브, 경관/포토',
+      section: 2,
+    },
+    {
+      place_id: 4,
+      title: '천지연 폭포',
+      address: '제주특별자치도 서귀포시 천지연폭포로 132',
+      thumbnail_url: 'https://api.cdn.visitjeju~~',
+      tag: '폭포, 자연경관, 경관/포토',
+      section: 4,
+    },
+    {
+      place_id: 5,
+      title: '제주 동문 시장',
+      address: '제주특별자치도 제주시 관덕로14길 20',
+      thumbnail_url: 'https://api.cdn.visitjeju~~',
+      tag: '전통시장, 쇼핑, 먹거리',
+      section: 1,
+    },
+    {
+      place_id: 6,
+      title: '협재 해수욕장',
+      address: '제주특별자치도 제주시 한림읍 협재리 2497-1',
+      thumbnail_url: 'https://api.cdn.visitjeju~~',
+      tag: '해수욕장, 해변, 경관/포토',
+      section: 6,
+    },
+    {
+      place_id: 7,
+      title: '비자림',
+      address: '제주특별자치도 제주시 구좌읍 비자림로 55',
+      thumbnail_url: 'https://api.cdn.visitjeju~~',
+      tag: '삼림욕, 자연경관, 경관/포토',
+      section: 2,
+    },
+    {
+      place_id: 8,
+      title: '용두암',
+      address: '제주특별자치도 제주시 용담이동 용두암길',
+      thumbnail_url: 'https://api.cdn.visitjeju~~',
+      tag: '바위, 자연경관, 경관/포토',
+      section: 4,
+    },
+    {
+      place_id: 9,
+      title: '우도',
+      address: '제주특별자치도 제주시 우도면',
+      thumbnail_url: 'https://api.cdn.visitjeju~~',
+      tag: '섬, 경관/포토, 자전거',
+      section: 3,
+    },
+    {
+      place_id: 10,
+      title: '제주 민속촌',
+      address: '제주특별자치도 서귀포시 표선면 민속해안로 631-34',
+      thumbnail_url: 'https://api.cdn.visitjeju~~',
+      tag: '민속촌, 역사, 문화',
+      section: 5,
+    },
+  ],
+}

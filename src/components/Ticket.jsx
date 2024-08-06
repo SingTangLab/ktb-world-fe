@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styles from '../styles/Ticket.module.css'
-import { useLocation, Link } from 'react-router-dom'
+import { useSearchParams, useLocation, Link } from 'react-router-dom'
 import {
   laundryData,
   taxiData,
@@ -16,6 +16,9 @@ export default function Ticket() {
   const location = useLocation()
   const pathname = location.pathname
 
+  const [searchParams] = useSearchParams()
+  const filter = searchParams.get('filter') || '전체'
+
   const isLaundry = pathname.includes('/laundry')
   const isTaxi = pathname.includes('/taxi')
   const isGonggu = pathname.includes('/gonggu')
@@ -23,17 +26,27 @@ export default function Ticket() {
 
   // 세탁 티켓 데이터 가져오기
   const tickets = isLaundry
-    ? laundryData.tickets
+    ? filter !== '전체'
+      ? laundryData.tickets.filter((ticket) => ticket.status === filter)
+      : laundryData.tickets
     : isTaxi
-    ? taxiData.tickets
+    ? filter !== '전체'
+      ? taxiData.tickets.filter((ticket) => ticket.status === filter)
+      : taxiData.tickets
     : isGonggu
-    ? gongguData.tickets
+    ? filter !== '전체'
+      ? gongguData.tickets.filter((ticket) => ticket.status === filter)
+      : gongguData.tickets
     : isUser
-    ? myData.tickets
+    ? filter !== '전체'
+      ? myData.tickets.filter((ticket) => ticket.status === filter)
+      : myData.tickets
+    : filter !== '전체'
+    ? allData.tickets.filter((ticket) => ticket.status === filter)
     : allData.tickets
 
   // 로그인된 유저의 ID (예시)
-  const loggedInUserId = 1
+  const loggedInUserId = 20
 
   return tickets.map((ticket) =>
     ticket.category === '세탁' ? (
@@ -68,8 +81,11 @@ function Laundry({ isUser, ticket, loggedInUserId }) {
   const [okButtonProps, setOkButtonProps] = useState({})
   const [okText, setOkText] = useState('확인')
   const [cancelText, setCancelText] = useState('닫기')
+  const [isChecked, setIsChecked] = useState(
+    ticket.participant_user.includes(loggedInUserId)
+  )
 
-  const isAuthor = ticket.user_id === 20
+  const isAuthor = ticket.user_id === loggedInUserId
   const isParticipant = ticket.participant_user.includes(loggedInUserId)
 
   const showModal = (
@@ -89,6 +105,7 @@ function Laundry({ isUser, ticket, loggedInUserId }) {
 
   const handleOk = () => {
     console.log('확인 클릭됨')
+    setIsChecked(true)
     setIsModalVisible(false)
   }
 
@@ -101,9 +118,6 @@ function Laundry({ isUser, ticket, loggedInUserId }) {
       className={styles.container}
       to={isUser && `/user/${ticket.ticket_id}`}
     >
-      <div className={`${styles.flag} ${styles.laundryFlag}`}>
-        {ticket.category}
-      </div>
       <div className={styles.main}>
         <div className={styles.top}>
           <div className={styles.left}>
@@ -166,11 +180,11 @@ function Laundry({ isUser, ticket, loggedInUserId }) {
                 </span>
               ) : (
                 <img
-                  src={isParticipant ? check : checkGray}
+                  src={isChecked ? check : checkGray}
                   className={styles.statusImage}
                   alt='Status'
                   onClick={() =>
-                    !isParticipant &&
+                    !isChecked &&
                     showModal(
                       '확인 버튼을 누르면 참여가 확정됩니다.',
                       '참여 확인'
@@ -203,6 +217,9 @@ function Taxi({ isUser, ticket, loggedInUserId }) {
   const [okButtonProps, setOkButtonProps] = useState({})
   const [okText, setOkText] = useState('확인')
   const [cancelText, setCancelText] = useState('닫기')
+  const [isChecked, setIsChecked] = useState(
+    ticket.participant_user.includes(loggedInUserId)
+  )
 
   const isAuthor = ticket.user_id === loggedInUserId
   const isParticipant = ticket.participant_user.includes(loggedInUserId)
@@ -224,6 +241,7 @@ function Taxi({ isUser, ticket, loggedInUserId }) {
 
   const handleOk = () => {
     console.log('확인 클릭됨')
+    setIsChecked(true)
     setIsModalVisible(false)
   }
 
@@ -236,9 +254,6 @@ function Taxi({ isUser, ticket, loggedInUserId }) {
       className={styles.container}
       to={isUser && `/user/${ticket.ticket_id}`}
     >
-      <div className={`${styles.flag} ${styles.taxiFlag}`}>
-        {ticket.category}
-      </div>
       <div className={styles.main}>
         <div key={ticket.ticket_id} className={styles.ticket}>
           <div className={styles.top}>
@@ -296,11 +311,11 @@ function Taxi({ isUser, ticket, loggedInUserId }) {
                   </span>
                 ) : (
                   <img
-                    src={isParticipant ? check : checkGray}
+                    src={isChecked ? check : checkGray}
                     className={styles.statusImage}
                     alt='Status'
                     onClick={() =>
-                      !isParticipant &&
+                      !isChecked &&
                       showModal(
                         '확인 버튼을 누르면 참여가 확정됩니다.',
                         '참여 확인'
@@ -339,6 +354,9 @@ function Gonggu({ isUser, ticket, loggedInUserId }) {
   const [okButtonProps, setOkButtonProps] = useState({})
   const [okText, setOkText] = useState('확인')
   const [cancelText, setCancelText] = useState('닫기')
+  const [isChecked, setIsChecked] = useState(
+    ticket.participant_user.includes(loggedInUserId)
+  )
 
   const isAuthor = ticket.user_id === loggedInUserId
   const isParticipant = ticket.participant_user.includes(loggedInUserId)
@@ -360,6 +378,7 @@ function Gonggu({ isUser, ticket, loggedInUserId }) {
 
   const handleOk = () => {
     console.log('확인 클릭됨')
+    setIsChecked(true)
     setIsModalVisible(false)
   }
 
@@ -372,9 +391,6 @@ function Gonggu({ isUser, ticket, loggedInUserId }) {
       className={styles.container}
       to={isUser && `/user/${ticket.ticket_id}`}
     >
-      <div className={`${styles.flag} ${styles.gongguFlag}`}>
-        {ticket.category}
-      </div>
       <div className={styles.main}>
         <div key={ticket.ticket_id} className={styles.ticket}>
           <div className={styles.top}>
@@ -432,11 +448,11 @@ function Gonggu({ isUser, ticket, loggedInUserId }) {
                   </span>
                 ) : (
                   <img
-                    src={isParticipant ? check : checkGray}
+                    src={isChecked ? check : checkGray}
                     className={styles.statusImage}
                     alt='Status'
                     onClick={() =>
-                      !isParticipant &&
+                      !isChecked &&
                       showModal(
                         '확인 버튼을 누르면 참여가 확정됩니다.',
                         '참여 확인'

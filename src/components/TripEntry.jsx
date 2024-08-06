@@ -1,27 +1,72 @@
-import React, { useCallback, useState } from 'react'
+import React, { useState } from 'react'
 import styles from '../styles/TripEntry.module.css'
 import { useNavigate } from 'react-router-dom'
 
 export default function TripEntry() {
   const navigate = useNavigate()
-  const [backgroundImage, setBackgroundImage] = useState('map.jpg')
+  const [visibleImage, setVisibleImage] = useState('map')
 
-  const handleMouseEnter = useCallback((region) => {
-    setBackgroundImage(`map-${region}.jpg`)
-  }, [])
+  const handleMouseEnter = (region) => {
+    setVisibleImage(`map-${region}`)
+  }
 
-  const handleMouseLeave = useCallback(() => {
-    setBackgroundImage('map.jpg')
-  }, [])
+  const handleMouseLeave = () => {
+    setVisibleImage('map')
+  }
 
   return (
     <div className={styles.main}>
-      <div
-        className={styles.island}
-        style={{
-          backgroundImage: `url(${require(`../images/${backgroundImage}`)})`,
-        }}
-      />
+      <div className={styles.islandContainer}>
+        <img
+          src={require('../images/map.jpg')}
+          className={`${styles.island} ${
+            visibleImage === 'map' ? styles.visible : ''
+          }`}
+          alt='map'
+        />
+        <img
+          src={require('../images/map-jeju.jpg')}
+          className={`${styles.island} ${
+            visibleImage === 'map-jeju' ? styles.visible : styles.hidden
+          }`}
+          alt='map-jeju'
+        />
+        <img
+          src={require('../images/map-jochun.jpg')}
+          className={`${styles.island} ${
+            visibleImage === 'map-jochun' ? styles.visible : styles.hidden
+          }`}
+          alt='map-jochun'
+        />
+        <img
+          src={require('../images/map-sungsan.jpg')}
+          className={`${styles.island} ${
+            visibleImage === 'map-sungsan' ? styles.visible : styles.hidden
+          }`}
+          alt='map-sungsan'
+        />
+        <img
+          src={require('../images/map-jungmoon.jpg')}
+          className={`${styles.island} ${
+            visibleImage === 'map-jungmoon' ? styles.visible : styles.hidden
+          }`}
+          alt='map-jungmoon'
+        />
+        <img
+          src={require('../images/map-daejung.jpg')}
+          className={`${styles.island} ${
+            visibleImage === 'map-daejung' ? styles.visible : styles.hidden
+          }`}
+          alt='map-daejung'
+        />
+        <img
+          src={require('../images/map-hankyung.jpg')}
+          className={`${styles.island} ${
+            visibleImage === 'map-hankyung' ? styles.visible : styles.hidden
+          }`}
+          alt='map-hankyung'
+        />
+      </div>
       <div className={styles.name}>
         <div
           className={`${styles.region} ${styles.jeju}`}

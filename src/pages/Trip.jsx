@@ -6,7 +6,6 @@ export function TripPage() {
   return (
     <div>
       <TripContainer>
-        <TripTitle>Trip</TripTitle>
         <TripEntry />
       </TripContainer>
     </div>

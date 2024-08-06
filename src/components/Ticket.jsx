@@ -43,45 +43,42 @@ export default function Ticket() {
 function Laundry({ ticket }) {
   return (
     <div className={styles.container}>
-      <div className={styles.flag}>{ticket.category}</div>
+      <div className={`${styles.flag} ${styles.laundryFlag}`}>
+        {ticket.category}
+      </div>
       <div className={styles.main}>
-        <div key={ticket.ticket_id} className={styles.ticket}>
-          <div className={styles.top}>
-            <div className={styles.left}>
-              <div className={styles.write}>
-                <div className={styles.writer}>{ticket.nickname}</div>
-                <div className={styles.writeTime}>
-                  {ticket.created_at.split('T')[1].slice(0, 5)}
-                </div>
+        <div className={styles.top}>
+          <div className={styles.left}>
+            <div className={styles.title}>{ticket.title}</div>
+            <div className={styles.description}>{ticket.description}</div>
+            <div className={styles.info}>
+              <div className={styles.color}>색상: {ticket.laundry_color}</div>
+              <div className={styles.dryer}>
+                건조기: {ticket.is_dry ? 'O' : 'X'}{' '}
               </div>
-              <div className={styles.title}>{ticket.title}</div>
-              <div className={styles.description}>{ticket.description}</div>
-              <div className={styles.info}>
-                <div className={styles.color}>색깔: {ticket.laundry_color}</div>
-                <div className={styles.dryer}>
-                  건조기: {ticket.is_dry ? 'O' : 'X'}
+              <div className={styles.write}>
+                <div className={styles.writer}>모집자 : {ticket.nickname}</div>
+                <div className={styles.writeTime}>
+                  작성 : {ticket.created_at.split('T')[1].slice(0, 5)}
                 </div>
               </div>
             </div>
-            <div className={styles.right}>
-              <div className={styles.people}>
-                {ticket.participant_user.length}/{ticket.capacity}
-              </div>
-              <div className={styles.status}>
-                <img src={check} className={styles.statusImage} alt='Status' />
+
+            <div className={styles.bottom}>
+              <div className={styles.bottomLeft}>
+                <div className={styles.start}>시작 : 07:40</div>
+                <div className={styles.end}>종료 : 08:20</div>
               </div>
             </div>
           </div>
-          <div className={styles.bottom}>
-            <div className={styles.bottomLeft}>
-              <div className={styles.start}>
-                시작: {ticket.start_time?.split('T')[1].slice(0, 5)}
-              </div>
-              <div className={styles.end}>
-                종료: {ticket.end_time?.split('T')[1].slice(0, 5)}
-              </div>
+
+          <div className={styles.right}>
+            <div className={styles.people}>
+              {ticket.participant_user.length} / {ticket.capacity}
             </div>
-            <div className={styles.bottomRight}>{ticket.status}</div>
+            <div className={styles.status}>
+              <img src={check} className={styles.statusImage} />
+            </div>
           </div>
         </div>
       </div>
@@ -92,20 +89,27 @@ function Laundry({ ticket }) {
 function Taxi({ ticket }) {
   return (
     <div className={styles.container}>
-      <div className={styles.flag}>{ticket.category}</div>
+      <div className={`${styles.flag} ${styles.taxiFlag}`}>
+        {ticket.category}
+      </div>
       <div className={styles.main}>
         <div key={ticket.ticket_id} className={styles.ticket}>
           <div className={styles.top}>
             <div className={styles.left}>
-              <div className={styles.write}>
-                <div className={styles.writer}>{ticket.nickname}</div>
-                <div className={styles.writeTime}>
-                  {ticket.created_at.split('T')[1].slice(0, 5)}
-                </div>
-              </div>
               <div className={styles.title}>{ticket.title}</div>
               <div className={styles.description}>{ticket.description}</div>
+              <div className={styles.info}>
+                <div className={styles.write}>
+                  <div className={styles.writer}>
+                    모집자 : {ticket.nickname}
+                  </div>
+                  <div className={styles.writeTime}>
+                    작성 : {ticket.created_at.split('T')[1].slice(0, 5)}
+                  </div>
+                </div>
+              </div>
             </div>
+
             <div className={styles.right}>
               <div className={styles.people}>
                 {ticket.participant_user.length}/{ticket.capacity}
@@ -129,19 +133,25 @@ function Taxi({ ticket }) {
 function Gonggu({ ticket }) {
   return (
     <div className={styles.container}>
-      <div className={styles.flag}>{ticket.category}</div>
+      <div className={`${styles.flag} ${styles.gongguFlag}`}>
+        {ticket.category}
+      </div>
       <div className={styles.main}>
         <div key={ticket.ticket_id} className={styles.ticket}>
           <div className={styles.top}>
             <div className={styles.left}>
-              <div className={styles.write}>
-                <div className={styles.writer}>{ticket.nickname}</div>
-                <div className={styles.writeTime}>
-                  {ticket.created_at.split('T')[1].slice(0, 5)}
-                </div>
-              </div>
               <div className={styles.title}>{ticket.title}</div>
               <div className={styles.description}>{ticket.description}</div>
+              <div className={styles.info}>
+                <div className={styles.write}>
+                  <div className={styles.writer}>
+                    모집자 : {ticket.nickname}
+                  </div>
+                  <div className={styles.writeTime}>
+                    작성 : {ticket.created_at.split('T')[1].slice(0, 5)}
+                  </div>
+                </div>
+              </div>
             </div>
             <div className={styles.right}>
               <div className={styles.people}>

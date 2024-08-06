@@ -20,7 +20,7 @@ export function LaundryPage() {
 export const ContentContainer = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   width: 100%;
   height: fit-content;
@@ -33,5 +33,8 @@ const LaundryContainer = styled.div`
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
   gap: 10px;
 `

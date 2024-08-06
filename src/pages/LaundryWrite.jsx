@@ -97,6 +97,7 @@ export function LaundryWritePage() {
         layout='vertical'
         style={{ maxWidth: 300, margin: '20px auto' }}
         initialValues={{ is_dry: true }}
+        onFinish={handleSubmit}
       >
         <Label>
           <Form.Item
@@ -260,7 +261,7 @@ export function LaundryWritePage() {
           </Form.Item>
         </Label>
         <Form.Item>
-          <Button type='primary' onClick={handleSubmit}>
+          <Button type='primary' htmlType='submit'>
             제출
           </Button>
         </Form.Item>
@@ -275,6 +276,7 @@ const LaundryWriteContainer = styled.div`
 `
 
 const LaundryWriteTitle = styled.h2`
+  margin-top: 55px;
   font-size: 24px;
   font-weight: 600;
   text-align: center;
@@ -288,14 +290,6 @@ const Label = styled.div`
   .ant-form-item-label {
     padding-bottom: 0;
   }
-`
-
-const MemberRow = styled(Row)`
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  justify-content: flex-start;
-  margin-top: -10px; /* 추가: 인원모집과 제한 있음 사이의 간격 줄이기 */
 `
 
 const StyledForm = styled(Form)`

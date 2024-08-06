@@ -11,10 +11,12 @@ import {
   Switch,
   Row,
   Col,
+  message,
 } from 'antd'
 import moment from 'moment'
 
 const { TextArea } = Input
+const SERVER_URL = 'http://localhost:8080/api'
 
 export function LaundryWritePage() {
   const [form] = Form.useForm()
@@ -77,12 +79,33 @@ export function LaundryWritePage() {
           description: values.description,
           capacity: values.capacity || 0,
           account: values.account,
-          laundry_color: values.laundry_color,
+          laundry_color: values.laundry_color.join(', '),
           is_dry: values.is_dry,
           start_time: `${currentDate}T${start_time}:00`,
           end_time: `${currentDate}T${end_time}:00`,
         }
-        console.log(updatedFormData)
+
+        fetch(`${SERVER_URL}/tickets`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(updatedFormData),
+        })
+          .then((response) => {
+            if (response.status === 201) {
+              return response.json()
+            }
+            throw new Error('Failed to create ticket')
+          })
+          .then((data) => {
+            message.success('티켓 생성 성공!')
+            console.log(data)
+          })
+          .catch((error) => {
+            message.error('티켓 생성 실패: ' + error.message)
+            console.log('Validation Failed:', error)
+          })
       })
       .catch((errorInfo) => {
         console.log('Validation Failed:', errorInfo)

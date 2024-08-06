@@ -22,6 +22,7 @@ export const ContentContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 100%;
 `
 
 const LaundryContainer = styled.div`

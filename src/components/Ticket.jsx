@@ -59,15 +59,17 @@ function Laundry({ isUser, ticket, loggedInUserId }) {
   const [okText, setOkText] = useState('확인')
   const [cancelText, setCancelText] = useState('닫기')
   const [isChecked, setIsChecked] = useState(
-    ticket.participant_user.includes(loggedInUserId)
+    ticket.participant_users.includes(parseInt(localStorage.getItem('user_id')))
   )
-  const [participant, setParticipant] = useState(ticket.participant_user.length)
+  const [participant, setParticipant] = useState(
+    ticket.participant_users.length
+  )
   const [isClosed, setIsClosed] = useState(
     ticket.status === '마감' || participant === ticket.capacity
   )
 
   const isAuthor = ticket.user_id === loggedInUserId
-  const isParticipant = ticket.participant_user.includes(loggedInUserId)
+  const isParticipant = ticket.participant_users.includes(loggedInUserId)
 
   useEffect(() => {
     if (participant === ticket.capacity || ticket.status === '마감') {
@@ -90,11 +92,26 @@ function Laundry({ isUser, ticket, loggedInUserId }) {
     setIsModalVisible(true)
   }
 
-  const handleOk = () => {
+  const handleOk = async () => {
     console.log('확인 클릭됨')
     setIsChecked(true)
     setIsModalVisible(false)
     setParticipant(participant + 1)
+    console.log(12)
+    const response = await fetch('http://localhost:8080/api/tickets/join', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        ticket_id: ticket.ticket_id,
+        user_id: localStorage.getItem('user_id'),
+      }),
+    })
+    console.log(1)
+    const responseData = await response.json()
+
+    console.log(responseData)
   }
 
   const handleCancel = () => {
@@ -216,7 +233,7 @@ function Taxi({ isUser, ticket, loggedInUserId }) {
   const [okText, setOkText] = useState('확인')
   const [cancelText, setCancelText] = useState('닫기')
   const [isChecked, setIsChecked] = useState(
-    ticket?.participant_users.includes(loggedInUserId)
+    ticket.participant_users.includes(parseInt(localStorage.getItem('user_id')))
   )
   const [participant, setParticipant] = useState(
     ticket.participant_users.length
@@ -247,10 +264,20 @@ function Taxi({ isUser, ticket, loggedInUserId }) {
     setIsModalVisible(true)
   }
 
-  const handleOk = () => {
+  const handleOk = async () => {
     console.log('확인 클릭됨')
     setIsChecked(true)
     setParticipant(participant + 1)
+    const response = await fetch('http://localhost:8080/api/tickets/join', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        ticket_id: ticket.ticket_id,
+        user_id: localStorage.getItem('user_id'),
+      }),
+    })
     setIsModalVisible(false)
   }
 
@@ -372,7 +399,7 @@ function Gonggu({ isUser, ticket, loggedInUserId }) {
   const [okText, setOkText] = useState('확인')
   const [cancelText, setCancelText] = useState('닫기')
   const [isChecked, setIsChecked] = useState(
-    ticket.participant_users.includes(loggedInUserId)
+    ticket.participant_users.includes(parseInt(localStorage.getItem('user_id')))
   )
   const [participant, setParticipant] = useState(
     ticket.participant_users.length
@@ -403,10 +430,21 @@ function Gonggu({ isUser, ticket, loggedInUserId }) {
     setIsModalVisible(true)
   }
 
-  const handleOk = () => {
+  const handleOk = async () => {
     console.log('확인 클릭됨')
     setIsChecked(true)
     setParticipant(participant + 1)
+
+    const response = await fetch('http://localhost:8080/api/tickets/join', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        ticket_id: ticket.ticket_id,
+        user_id: localStorage.getItem('user_id'),
+      }),
+    })
     setIsModalVisible(false)
   }
 

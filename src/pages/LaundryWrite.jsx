@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
-import { PlusOutlined, DownOutlined } from '@ant-design/icons'
+import { DownOutlined } from '@ant-design/icons'
 import {
   Button,
   Form,
@@ -19,15 +20,16 @@ const { TextArea } = Input
 const SERVER_URL = 'http://localhost:8080/api'
 
 export function LaundryWritePage() {
+  const navigate = useNavigate()
   const [form] = Form.useForm()
-  const [limitType, setLimitType] = useState('limited') // 기본 값 설정 ('limited' 또는 'unlimited')
+  const [limitType, setLimitType] = useState('limited')
   const [formData, setFormData] = useState({
     title: '',
     description: '',
     is_limited: true,
-    capacity: 3, // 기본 최대 인원 수를 3으로 설정
-    participant_users: [3, 6],
-    creator: 3,
+    capacity: 3,
+    participant_users: [],
+    creator: parseInt(localStorage.getItem('user_id'), 10) || 3,
     account: '',
     category: '세탁',
     laundry_color: [],
@@ -35,9 +37,38 @@ export function LaundryWritePage() {
     start_time: '',
     end_time: '',
   })
-
   const [value, setValue] = useState([])
   const [maxCount, setMaxCount] = useState(formData.capacity)
+  const [userOptions, setUserOptions] = useState([])
+
+  useEffect(() => {
+    fetch(`${SERVER_URL}/users/all`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json()
+        }
+        throw new Error('Failed to load user list')
+      })
+      .then((data) => {
+        if (Array.isArray(data)) {
+          const options = data.map((user) => ({
+            value: user.id,
+            label: user.nickname,
+          }))
+          setUserOptions(options)
+        } else {
+          throw new Error('Invalid user data format')
+        }
+      })
+      .catch((error) => {
+        message.error('유저 목록을 불러오는 데 실패했습니다: ' + error.message)
+      })
+  }, [])
 
   const suffix = (
     <>
@@ -53,7 +84,6 @@ export function LaundryWritePage() {
     setLimitType(selectedValue)
     setFormData({ ...formData, is_limited: selectedValue === 'limited' })
 
-    // 제한 있음/없음 변경 시 선택된 항목 초기화
     setValue([])
   }
 
@@ -71,20 +101,28 @@ export function LaundryWritePage() {
     form
       .validateFields()
       .then((values) => {
-        const [start_time, end_time] = values.time.split(' ~ ')
+        const [start_time, end_time] = values.time
+          .split(' ~ ')
+          .map((time) => time.trim())
         const currentDate = moment().format('YYYY-MM-DD')
         const updatedFormData = {
           ...formData,
           title: values.title,
           description: values.description,
-          capacity: values.capacity || 0,
+          capacity: limitType === 'limited' ? maxCount : 0,
           account: values.account,
           laundry_color: values.laundry_color.join(', '),
           is_dry: values.is_dry,
-          start_time: `${currentDate}T${start_time}:00`,
-          end_time: `${currentDate}T${end_time}:00`,
+          start_time: moment(
+            `${currentDate} ${start_time}`,
+            'YYYY-MM-DD HH:mm'
+          ).toISOString(),
+          end_time: moment(
+            `${currentDate} ${end_time}`,
+            'YYYY-MM-DD HH:mm'
+          ).toISOString(),
         }
-
+        console.log('########', updatedFormData)
         fetch(`${SERVER_URL}/tickets`, {
           method: 'POST',
           headers: {
@@ -101,6 +139,7 @@ export function LaundryWritePage() {
           .then((data) => {
             message.success('티켓 생성 성공!')
             console.log(data)
+            navigate('/home') // 제출 후 /home 리다이렉트
           })
           .catch((error) => {
             message.error('티켓 생성 실패: ' + error.message)
@@ -193,7 +232,7 @@ export function LaundryWritePage() {
                         value={maxCount}
                         onChange={handleMaxCountChange}
                         min={1}
-                        max={10} // 최대 인원 수 설정
+                        max={10}
                         placeholder='총 가능 인원수를 입력하세요'
                         style={{ width: '100%' }}
                       />
@@ -219,44 +258,7 @@ export function LaundryWritePage() {
               onChange={handleSelectChange}
               suffixIcon={suffix}
               placeholder='Please select'
-              options={[
-                {
-                  value: 1,
-                  label: 'Ava Swift',
-                },
-                {
-                  value: 2,
-                  label: 'Cole Reed',
-                },
-                {
-                  value: 3,
-                  label: 'Mia Blake',
-                },
-                {
-                  value: 4,
-                  label: 'Jake Stone',
-                },
-                {
-                  value: 5,
-                  label: 'Lily Lane',
-                },
-                {
-                  value: 6,
-                  label: 'Ryan Chase',
-                },
-                {
-                  value: 7,
-                  label: 'Zoe Fox',
-                },
-                {
-                  value: 8,
-                  label: 'Alex Grey',
-                },
-                {
-                  value: 9,
-                  label: 'Elle Blair',
-                },
-              ]}
+              options={userOptions}
             />
           </Form.Item>
         </Label>
@@ -267,9 +269,9 @@ export function LaundryWritePage() {
             rules={[{ required: true, message: '시간을 선택해주세요.' }]}
           >
             <Select placeholder='시간을 선택해주세요.' style={{ width: 300 }}>
-              <Select.Option value='6:00 ~ 6:40'>6:00 ~ 6:40</Select.Option>
-              <Select.Option value='6:40 ~ 7:20'>6:40 ~ 7:20</Select.Option>
-              <Select.Option value='7:20 ~ 8:00'>7:20 ~ 8:00</Select.Option>
+              <Select.Option value='06:00 ~ 06:40'>06:00 ~ 06:40</Select.Option>
+              <Select.Option value='06:40 ~ 07:20'>06:40 ~ 07:20</Select.Option>
+              <Select.Option value='07:20 ~ 08:00'>07:20 ~ 08:00</Select.Option>
               <Select.Option value='19:00 ~ 19:40'>19:00 ~ 19:40</Select.Option>
               <Select.Option value='19:40 ~ 20:20'>19:40 ~ 20:20</Select.Option>
               <Select.Option value='20:20 ~ 21:00'>20:20 ~ 21:00</Select.Option>
@@ -277,9 +279,9 @@ export function LaundryWritePage() {
               <Select.Option value='21:40 ~ 22:20'>21:40 ~ 22:20</Select.Option>
               <Select.Option value='22:20 ~ 23:00'>22:20 ~ 23:00</Select.Option>
               <Select.Option value='23:00 ~ 23:40'>23:00 ~ 23:40</Select.Option>
-              <Select.Option value='23:40 ~ 24:00'>23:40 ~ 24:20</Select.Option>
-              <Select.Option value='24:00 ~ 24:40'>24:20 ~ 01:00</Select.Option>
-              <Select.Option value='24:40 ~ 25:20'>01:00 ~ 01:40</Select.Option>
+              <Select.Option value='23:40 ~ 24:00'>23:40 ~ 00:00</Select.Option>
+              <Select.Option value='24:00 ~ 24:40'>00:00 ~ 00:40</Select.Option>
+              <Select.Option value='24:40 ~ 25:20'>00:40 ~ 01:20</Select.Option>
             </Select>
           </Form.Item>
         </Label>

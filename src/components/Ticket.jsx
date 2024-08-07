@@ -8,7 +8,7 @@ import DraggableModal from './DraggableModal'
 export default function Ticket({ datas = [] }) {
   const location = useLocation()
   const pathname = location.pathname
-
+  console.log('datas', datas)
   const [searchParams] = useSearchParams()
   const filter = searchParams.get('filter') || '전체'
 
@@ -59,15 +59,17 @@ function Laundry({ isUser, ticket, loggedInUserId }) {
   const [okText, setOkText] = useState('확인')
   const [cancelText, setCancelText] = useState('닫기')
   const [isChecked, setIsChecked] = useState(
-    ticket.participant_user.includes(loggedInUserId)
+    ticket.participant_user?.includes(loggedInUserId)
   )
-  const [participant, setParticipant] = useState(ticket.participant_user.length)
+  const [participant, setParticipant] = useState(
+    ticket.participant_user?.length
+  )
   const [isClosed, setIsClosed] = useState(
-    ticket.status === '마감' || participant === ticket.capacity
+    ticket.status === '마감' || participant === ticket?.capacity
   )
 
-  const isAuthor = ticket.user_id === loggedInUserId
-  const isParticipant = ticket.participant_user.includes(loggedInUserId)
+  const isAuthor = ticket?.user_id === loggedInUserId
+  const isParticipant = ticket.participant_user?.includes(loggedInUserId)
 
   useEffect(() => {
     if (participant === ticket.capacity || ticket.status === '마감') {
@@ -137,14 +139,18 @@ function Laundry({ isUser, ticket, loggedInUserId }) {
             </div>
             <div className={styles.bottom}>
               <div className={styles.bottomLeft}>
-                <div className={styles.start}>시작 : 07:40</div>
-                <div className={styles.end}>종료 : 08:20</div>
+                <div className={styles.start}>
+                  시작 : {ticket.start_time.split('T')[1].slice(0, 5)}
+                </div>
+                <div className={styles.end}>
+                  종료 : {ticket.end_time.split('T')[1].slice(0, 5)}
+                </div>
               </div>
             </div>
           </div>
           <div className={styles.right}>
             <div className={styles.people}>
-              {participant} / {ticket.capacity}
+              {ticket.participant_users.length} / {ticket.capacity || '♾️'}
             </div>
             <div className={styles.status}>
               {isClosed ? (

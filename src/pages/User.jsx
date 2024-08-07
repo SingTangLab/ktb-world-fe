@@ -1,13 +1,31 @@
 import styled from 'styled-components'
 import { ContentContainer } from './Laundry'
 import Ticket from '../components/Ticket'
+import { useEffect, useState } from 'react'
 
 export function UserPage() {
-  const tickets = Array.from({ length: 10 })
+  const [data, setData] = useState([])
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(
+        `http://localhost:8080/api/tickets/users?category=전체&filter=전체&user_id=${localStorage.getItem(
+          'user_id'
+        )}`
+      )
+      const responseData = await response.json()
+      console.log(responseData)
+
+      setData(responseData?.tickets)
+    }
+
+    fetchData()
+  }, [])
+
   return (
     <ContentContainer>
       <UserContainer>
-        <Ticket />
+        <Ticket datas={data} />
       </UserContainer>
     </ContentContainer>
   )

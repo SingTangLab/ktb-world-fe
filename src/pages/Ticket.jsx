@@ -10,13 +10,14 @@ export function TicketPage() {
   const titleList = ['제목', '내용', '참여', '계좌', '티켓 발급 날짜']
   const { id } = useParams()
   const [data, setData] = useState('')
+  console.log(id)
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch(`/api/tickets/${id}`)
+      const response = await fetch(`http://localhost:8080/api/tickets/${id}`)
       const responseData = await response.json()
       console.log(responseData)
-      setData(responseData)
+      setData(responseData.data)
     }
 
     fetchData()
@@ -40,11 +41,13 @@ export function TicketPage() {
               </TicketContent>
               <TicketContent>
                 <ContentTitle>내용</ContentTitle>
-                <ContentContent>{data.content}</ContentContent>
+                <ContentContent>{data.description}</ContentContent>
               </TicketContent>
               <TicketContent>
                 <ContentTitle>참여</ContentTitle>
-                <ContentContent>{data.members.join(', ')}</ContentContent>
+                <ContentContent>
+                  {data.participant_user?.join(', ')}
+                </ContentContent>
               </TicketContent>
               <TicketContent>
                 <ContentTitle>계좌</ContentTitle>
@@ -53,7 +56,7 @@ export function TicketPage() {
               <TicketDate>
                 <ContentDateTitle>{titleList[4]}</ContentDateTitle>
                 <ContentDateContent>
-                  <TextAlign>{data.ticketDate}</TextAlign>
+                  <TextAlign>{data.created_at}</TextAlign>
                 </ContentDateContent>
               </TicketDate>
 

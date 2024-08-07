@@ -461,6 +461,33 @@ function Gonggu({ isUser, ticket, loggedInUserId }) {
     setIsModalVisible(false)
   }
 
+  const handleClickDry = async () => {
+    showModal(
+      '인원 모집이 완료되지 않았습니다. 정말 마감하시겠습니까?',
+      '마감 확인',
+      {
+        style: { backgroundColor: 'red', borderColor: 'red' },
+        onClick: handleClose,
+      },
+      '마감',
+      '닫기'
+    )
+    const response = await fetch(
+      'http://localhost:8080/api/tickets/close/:id',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ticket_id: ticket.ticket_id,
+          user_id: localStorage.getItem('user_id'),
+        }),
+      }
+    )
+    setIsModalVisible(false)
+  }
+
   return (
     <Link
       className={styles.container}
@@ -508,22 +535,7 @@ function Gonggu({ isUser, ticket, loggedInUserId }) {
                     />
                   )
                 ) : isAuthor ? (
-                  <span
-                    onClick={() =>
-                      showModal(
-                        '인원 모집이 완료되지 않았습니다. 정말 마감하시겠습니까?',
-                        '마감 확인',
-                        {
-                          style: { backgroundColor: 'red', borderColor: 'red' },
-                          onClick: handleClose,
-                        },
-                        '마감',
-                        '닫기'
-                      )
-                    }
-                  >
-                    마감하기
-                  </span>
+                  <span onClick={() => handleClickDry}>마감하기</span>
                 ) : (
                   <img
                     src={isChecked ? check : checkGray}

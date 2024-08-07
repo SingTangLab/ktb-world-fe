@@ -19,7 +19,7 @@ export function Header() {
     return null
   }
 
-  const isShow = !pathname.includes('login')
+  const isShow = pathname !== '/'
 
   return (
     <Container>

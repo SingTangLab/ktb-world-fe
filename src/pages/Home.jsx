@@ -2,14 +2,32 @@ import styled from 'styled-components'
 import { SelectBar } from '../components/SelectBar'
 import Ticket from '../components/Ticket'
 import { useEffect, useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 
 export function HomePage() {
-  const tickets = Array.from({ length: 10 }) // Creates an array with 10 undefined elements
+  const [data, setData] = useState([])
+  const [searchParams] = useSearchParams()
+
+  useEffect(() => {
+    const filter = searchParams.get('filter') || '전체'
+
+    const fetchData = async () => {
+      const response = await fetch(
+        `http://localhost:8080/api/tickets?category=전체&filter=${filter}`
+      )
+
+      const responseData = await response.json()
+      setData(responseData?.tickets)
+    }
+
+    fetchData()
+  }, [searchParams])
+
   return (
     <ContentContainer>
       <SelectBar />
       <HomeContainer>
-        <Ticket />
+        <Ticket datas={data} />
       </HomeContainer>
     </ContentContainer>
   )

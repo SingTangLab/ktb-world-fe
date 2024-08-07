@@ -1,12 +1,23 @@
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { Category } from './Category'
+import { useEffect } from 'react'
 
 export function Header() {
   const location = useLocation()
+  const navigate = useNavigate()
   const pathname = location.pathname
+  const nickname = localStorage.getItem('nickname')
 
-  const nickname = 'seny.park'
+  useEffect(() => {
+    if (!nickname) {
+      navigate('/')
+    }
+  }, [nickname, navigate])
+
+  if (!nickname) {
+    return null
+  }
 
   const isShow = !pathname.includes('login')
 
@@ -30,12 +41,10 @@ const Container = styled.div`
   width: 100%;
   max-width: 360px;
   position: fixed;
-  // 수평 중앙
   top: 0;
   left: 0;
   right: 0;
   margin: 0 auto;
-
   z-index: 10;
   background-color: #fff;
 `
@@ -55,6 +64,7 @@ const Title = styled(Link)`
   text-decoration: none;
   color: inherit;
 `
+
 const Profile = styled(Link)`
   display: flex;
   align-items: center;

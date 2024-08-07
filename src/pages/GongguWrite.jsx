@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { DownOutlined } from '@ant-design/icons'
@@ -13,6 +13,7 @@ export function GongguWritePage() {
   const [value, setValue] = useState([])
   const [isLimited, setIsLimited] = useState(true)
   const [maxCount, setMaxCount] = useState(3)
+  const [userOptions, setUserOptions] = useState([])
   const [formData, setFormData] = useState({
     title: '',
     description: '',
@@ -32,6 +33,35 @@ export function GongguWritePage() {
       <DownOutlined />
     </>
   )
+
+  useEffect(() => {
+    fetch(`${SERVER_URL}/users/all`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json()
+        }
+        throw new Error('Failed to load user list')
+      })
+      .then((data) => {
+        if (Array.isArray(data)) {
+          const options = data.map((user) => ({
+            value: user.id,
+            label: user.nickname,
+          }))
+          setUserOptions(options)
+        } else {
+          throw new Error('Invalid user data format')
+        }
+      })
+      .catch((error) => {
+        message.error('유저 목록을 불러오는 데 실패했습니다: ' + error.message)
+      })
+  }, [])
 
   const handleRadioChange = (e) => {
     const selectedValue = e.target.value
@@ -158,17 +188,7 @@ export function GongguWritePage() {
             onChange={handleSelectChange}
             suffixIcon={suffix}
             placeholder='Please select'
-            options={[
-              { value: 1, label: 'Ava Swift' },
-              { value: 2, label: 'Cole Reed' },
-              { value: 3, label: 'Mia Blake' },
-              { value: 4, label: 'Jake Stone' },
-              { value: 5, label: 'Lily Lane' },
-              { value: 6, label: 'Ryan Chase' },
-              { value: 7, label: 'Zoe Fox' },
-              { value: 8, label: 'Alex Grey' },
-              { value: 9, label: 'Elle Blair' },
-            ]}
+            options={userOptions}
           />
         </Form.Item>
         <Form.Item>

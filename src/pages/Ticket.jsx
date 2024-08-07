@@ -2,54 +2,25 @@ import styled from 'styled-components'
 import { ContentContainer } from './Laundry'
 import ticketTop from '../images/ticketTop.png'
 import TicketIcon from '../images/TicketIcon'
-import { useNavigate, useParams } from 'react-router-dom'
-import { myData } from '../data/data'
+import { useNavigate, useParams, useLocation } from 'react-router-dom'
+import { useEffect, useState } from 'react'
 
 export function TicketPage() {
   const navigate = useNavigate()
   const titleList = ['제목', '내용', '참여', '계좌', '티켓 발급 날짜']
   const { id } = useParams()
+  const [data, setData] = useState('')
 
-  const ticketDetailList = myData.tickets.map((ticket) => ({
-    id: ticket.ticket_id,
-    type: ticket.category,
-    state: ticket.status === '빨래중' ? '빨래 중' : ticket.status,
-    title: ticket.title,
-    content: `${ticket.description} ${ticket.description} ${ticket.description}`,
-    members: ticket.participant_user.map((userId) => {
-      const userNicknameMapping = {
-        20: 'user_20',
-        2: 'jane.kim',
-        4: 'john.lee',
-        3: 'lee.hyun',
-        5: 'park.jin',
-        8: 'kang.sohee',
-        9: 'kim.seung',
-        10: 'lee.sun',
-        11: 'james.kim',
-        12: 'jung.woo',
-        13: 'han.mira',
-        14: 'choi.hyun',
-        15: 'kang.sohee',
-        16: 'kim.woo',
-        17: 'lee.sun',
-      }
-      return userNicknameMapping[userId] || 'unknown'
-    }),
-    ticketDate: new Date(ticket.created_at).toLocaleDateString('ko-KR', {
-      month: '2-digit',
-      day: '2-digit',
-    }),
-    account: '국민은행 1000-203-12334',
-  }))
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(`/api/tickets/${id}`)
+      const responseData = await response.json()
+      console.log(responseData)
+      setData(responseData)
+    }
 
-  const nowTicket = ticketDetailList.find(
-    (ticket) => ticket.id === parseInt(id)
-  )
-
-  if (!nowTicket) {
-    return <div>티켓을 찾을 수 없습니다.</div>
-  }
+    fetchData()
+  }, [id])
 
   const handleClose = () => {
     navigate('/user')
@@ -65,24 +36,24 @@ export function TicketPage() {
             <TicketContents>
               <TicketContent>
                 <ContentTitle>제목</ContentTitle>
-                <ContentContent>{nowTicket.title}</ContentContent>
+                <ContentContent>{data.title}</ContentContent>
               </TicketContent>
               <TicketContent>
                 <ContentTitle>내용</ContentTitle>
-                <ContentContent>{nowTicket.content}</ContentContent>
+                <ContentContent>{data.content}</ContentContent>
               </TicketContent>
               <TicketContent>
                 <ContentTitle>참여</ContentTitle>
-                <ContentContent>{nowTicket.members.join(', ')}</ContentContent>
+                <ContentContent>{data.members.join(', ')}</ContentContent>
               </TicketContent>
               <TicketContent>
                 <ContentTitle>계좌</ContentTitle>
-                <ContentContent>{nowTicket.account}</ContentContent>
+                <ContentContent>{data.account}</ContentContent>
               </TicketContent>
               <TicketDate>
                 <ContentDateTitle>{titleList[4]}</ContentDateTitle>
                 <ContentDateContent>
-                  <TextAlign>{nowTicket.ticketDate}</TextAlign>
+                  <TextAlign>{data.ticketDate}</TextAlign>
                 </ContentDateContent>
               </TicketDate>
 
@@ -96,8 +67,8 @@ export function TicketPage() {
               <TicketIcon />
             </TicketIconBox>
             <TicketText>
-              <TicketType>{nowTicket.type}</TicketType>
-              <TicketSub>{nowTicket.state}</TicketSub>
+              <TicketType>{data.type}</TicketType>
+              <TicketSub>{data.state}</TicketSub>
             </TicketText>
           </TicketTopContainer>
         </TicketContainer>

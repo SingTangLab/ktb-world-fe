@@ -1,18 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import styles from '../styles/Ticket.module.css'
 import { useSearchParams, useLocation, Link } from 'react-router-dom'
-import {
-  laundryData,
-  taxiData,
-  gongguData,
-  allData,
-  myData,
-} from '../data/data' // 목업 데이터 임포트
 import check from '../images/check.png'
 import checkGray from '../images/notcheck.png'
 import DraggableModal from './DraggableModal'
 
-export default function Ticket() {
+export default function Ticket({ datas = [] }) {
   const location = useLocation()
   const pathname = location.pathname
 
@@ -24,53 +17,37 @@ export default function Ticket() {
   const isGonggu = pathname.includes('/gonggu')
   const isUser = pathname.includes('/user')
 
-  // 세탁 티켓 데이터 가져오기
-  const tickets = isLaundry
-    ? filter !== '전체'
-      ? laundryData.tickets.filter((ticket) => ticket.status === filter)
-      : laundryData.tickets
-    : isTaxi
-    ? filter !== '전체'
-      ? taxiData.tickets.filter((ticket) => ticket.status === filter)
-      : taxiData.tickets
-    : isGonggu
-    ? filter !== '전체'
-      ? gongguData.tickets.filter((ticket) => ticket.status === filter)
-      : gongguData.tickets
-    : isUser
-    ? filter !== '전체'
-      ? myData.tickets.filter((ticket) => ticket.status === filter)
-      : myData.tickets
-    : filter !== '전체'
-    ? allData.tickets.filter((ticket) => ticket.status === filter)
-    : allData.tickets
-
   // 로그인된 유저의 ID (예시)
   const loggedInUserId = 20
 
-  return tickets.map((ticket) =>
-    ticket.category === '세탁' ? (
-      <Laundry
-        key={ticket.ticket_id}
-        isUser={isUser}
-        ticket={ticket}
-        loggedInUserId={loggedInUserId}
-      />
-    ) : ticket.category === '택시' ? (
-      <Taxi
-        key={ticket.ticket_id}
-        isUser={isUser}
-        ticket={ticket}
-        loggedInUserId={loggedInUserId}
-      />
-    ) : (
-      <Gonggu
-        key={ticket.ticket_id}
-        isUser={isUser}
-        ticket={ticket}
-        loggedInUserId={loggedInUserId}
-      />
+  // Ensure datas is an array before mapping
+  return Array.isArray(datas) ? (
+    datas.map((data) =>
+      data.category === '세탁' ? (
+        <Laundry
+          key={data.ticket_id}
+          isUser={isUser}
+          ticket={data}
+          loggedInUserId={loggedInUserId}
+        />
+      ) : data.category === '택시' ? (
+        <Taxi
+          key={data.ticket_id}
+          isUser={isUser}
+          ticket={data}
+          loggedInUserId={loggedInUserId}
+        />
+      ) : (
+        <Gonggu
+          key={data.ticket_id}
+          isUser={isUser}
+          ticket={data}
+          loggedInUserId={loggedInUserId}
+        />
+      )
     )
+  ) : (
+    <p>No data available</p> // Fallback if datas is not an array
   )
 }
 
@@ -239,15 +216,17 @@ function Taxi({ isUser, ticket, loggedInUserId }) {
   const [okText, setOkText] = useState('확인')
   const [cancelText, setCancelText] = useState('닫기')
   const [isChecked, setIsChecked] = useState(
-    ticket.participant_user.includes(loggedInUserId)
+    ticket?.participant_users.includes(loggedInUserId)
   )
-  const [participant, setParticipant] = useState(ticket.participant_user.length)
+  const [participant, setParticipant] = useState(
+    ticket.participant_users.length
+  )
   const [isClosed, setIsClosed] = useState(
     ticket.status === '마감' || participant === ticket.capacity
   )
 
   const isAuthor = ticket.user_id === loggedInUserId
-  const isParticipant = ticket.participant_user.includes(loggedInUserId)
+  const isParticipant = ticket.participant_users.includes(loggedInUserId)
   useEffect(() => {
     if (participant === ticket.capacity || ticket.status === '마감') {
       setIsClosed(true)
@@ -393,15 +372,17 @@ function Gonggu({ isUser, ticket, loggedInUserId }) {
   const [okText, setOkText] = useState('확인')
   const [cancelText, setCancelText] = useState('닫기')
   const [isChecked, setIsChecked] = useState(
-    ticket.participant_user.includes(loggedInUserId)
+    ticket.participant_users.includes(loggedInUserId)
   )
-  const [participant, setParticipant] = useState(ticket.participant_user.length)
+  const [participant, setParticipant] = useState(
+    ticket.participant_users.length
+  )
   const [isClosed, setIsClosed] = useState(
     ticket.status === '마감' || participant === ticket.capacity
   )
 
   const isAuthor = ticket.user_id === loggedInUserId
-  const isParticipant = ticket.participant_user.includes(loggedInUserId)
+  const isParticipant = ticket.participant_users.includes(loggedInUserId)
   useEffect(() => {
     if (participant === ticket.capacity || ticket.status === '마감') {
       setIsClosed(true)

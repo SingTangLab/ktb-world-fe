@@ -8,7 +8,7 @@ export function Header() {
 
   const nickname = 'seny.park'
 
-  const isShow = !pathname.includes('login')
+  const isShow = pathname !== '/'
 
   return (
     <Container>
